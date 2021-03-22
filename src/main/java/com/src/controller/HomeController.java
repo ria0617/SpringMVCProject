@@ -36,4 +36,10 @@ public class HomeController {
 		return "home";
 	}
 	
+	//인덱스
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String index() {
+		return "index";
+	}
+	
 }
