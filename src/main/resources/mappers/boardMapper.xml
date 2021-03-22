@@ -2,8 +2,38 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardMapper">
+	<!-- 글쓰기 -->
 	<insert id="write">
 		INSERT INTO sprmvc (BNO, TITLE, CONTENT, WRITER)
 		VALUES (SPRMVC_SEQ.NEXTVAL, #{title}, #{content}, #{writer})
 	</insert>
+	
+	<!-- 목록조회 -->
+	<select id="list" resultType="com.src.vo.BoardVO">
+		SELECT BNO, TITLE, WRITER, REGDATE
+		FROM sprmvc
+		ORDER BY BNO DESC
+	</select>
+	
+	<!-- 글보기  -->
+	<select id="read" parameterType="int" resultType="com.src.vo.BoardVO">
+		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE
+		FROM sprmvc
+		WHERE BNO = #{bno}
+	</select>
+	
+	<!-- 글 수정 -->
+	<update id="update" parameterType="com.src.vo.BoardVO">
+		UPDATE sprmvc
+		SET 
+			TITLE = #{title},
+			CONTENT = #{content}
+		 WHERE BNO = #{bno} 
+	</update>
+	
+	<!-- 글삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM sprmvc
+		WHERE BNO = #{bno}
+	</delete>
 </mapper>
