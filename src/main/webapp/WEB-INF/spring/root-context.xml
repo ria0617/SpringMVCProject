@@ -14,8 +14,8 @@
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
 		<property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521/XE" />
-		<property name="username" value="mboard" />
-		<property name="password" value="mboard" />
+		<property name="username" value="spmvc" />
+		<property name="password" value="spmvc" />
 	</bean>
 
 	<!-- Mybatis 연동 -->
@@ -27,5 +27,10 @@
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
+	
+	<!-- 스캔 -->
+	<context:component-scan base-package="com.src.service"></context:component-scan>
+	<context:component-scan base-package="com.src.dao"></context:component-scan>
+	<context:component-scan base-package="com.src.vo"></context:component-scan>
 	
 </beans>
