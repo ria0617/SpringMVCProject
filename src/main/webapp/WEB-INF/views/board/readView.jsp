@@ -19,6 +19,13 @@ function deleteClick(){
 	formObj.attr("method", "post");
 	formObj.submit();
 }
+//목록
+$(".list_btn").on("click", function(){
+
+location.href = "/board/list?page=${scri.page}"
++"&perPageNum=${scri.perPageNum}"
++"&searchType=${scri.searchType}&keyword=${scri.keyword}";
+})
 </script>
 
 <body class="sb-nav-fixed">
@@ -39,31 +46,50 @@ function deleteClick(){
 					<div class="card-body">
 						<form name="readForm" role="form" method="post" >
 							<input class="form-control py-4" id="bno" name="bno" type="hidden" value="${read.bno}"/>
+							<input type="hidden" id="page" name="page" value="${scri.page}"> 
+							<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
+							<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
+							<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
 						</form>
-							<div class="form-group">
-								<label class="small mb-1" for="bno">글 번호</label>
-								${read.bno}&nbsp;&nbsp;|&nbsp;&nbsp;
-								<label class="small mb-1" for="writer">작성자</label>
-								<input class="form-control py-4" id="writer" name="writer" type="hidden" value="${read.writer}"/>
-								${read.writer}&nbsp;&nbsp;|&nbsp;&nbsp;
-								<label class="small mb-1"  for="regdate">작성일</label>
-								<fmt:formatDate value="${read.regdate}" pattern="yyyy-MM-dd"/>
-							</div>
-							<div class="form-group">
-								<label class="small mb-1" for="title">제목: </label>
-								<input class="form-control py-4" id="title" name="title" type="hidden" value="${read.title}"/>
-								${read.title}
-							</div>
-							<div class="form-group">
-								${read.content}
-							</div>
-							<div class="form-group align-items-center justify-content-between mt-4 mb-0">
-								<button class="btn btn-primary" type="submit" onclick="updateClick()">수정</button>
-								<button class="btn btn-primary" type="submit" onclick="deleteClick()">삭제</button>
-								<a class="small"  href="/board/list">목록으로</a>
-							</div>
+						<div class="form-group">
+							<label class="small mb-1" for="bno">글 번호</label>
+							${read.bno}&nbsp;&nbsp;|&nbsp;&nbsp;
+							<label class="small mb-1" for="writer">작성자</label>
+							<input class="form-control py-4" id="writer" name="writer" type="hidden" value="${read.writer}"/>
+							${read.writer}&nbsp;&nbsp;|&nbsp;&nbsp;
+							<label class="small mb-1"  for="regdate">작성일</label>
+							<fmt:formatDate value="${read.regdate}" pattern="yyyy-MM-dd"/>
+						</div>
+						<div class="form-group">
+							<label class="small mb-1" for="title">제목: </label>
+							<input class="form-control py-4" id="title" name="title" type="hidden" value="${read.title}"/>
+							${read.title}
+						</div>
+						<div class="form-group">
+							${read.content}
+						</div>
+						<div class="form-group align-items-center justify-content-between mt-4 mb-0">
+							<button class="btn btn-primary" type="submit" onclick="updateClick()">수정</button>
+							<button class="btn btn-primary" type="submit" onclick="deleteClick()">삭제</button>
+							<a class="small list_btn"  href="/board/list">목록으로</a>
+						</div>
 					</div>
 					<div class="card-footer text-center">
+						<!-- 댓글 -->
+						<div id="reply">
+							<ol class="replyList">
+								<c:forEach items="${replyList}" var="replyList">
+									<li>
+										<p>
+											작성자 : ${replyList.writer}<br /> 
+											작성 날짜 :
+											<fmt:formatDate value="${replyList.regdate}" pattern="yyyy-MM-dd" />
+										</p>
+										<p>${replyList.content}</p>
+									</li>
+								</c:forEach>
+							</ol>
+						</div>
 						<div class="small">
 							<a href="#">계정이 있으면 로그인 해주세요</a>
 						</div>

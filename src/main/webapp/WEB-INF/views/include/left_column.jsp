@@ -9,19 +9,18 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-film"></i></div>
                     영화소개
                 </a>
-                
                 <div class="sb-sidenav-menu-heading">영화리뷰</div>
-                <a class="nav-link collapsed" href="/board/list">
+                <a class="nav-link" href="/board/list">
                     <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                     영화리뷰
                 </a>
                 
                 <div class="sb-sidenav-menu-heading">마이페이지</div>
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link" href="#">
                     <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
                     회원정보수정
                 </a>
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link" href="#">
                     <div class="sb-nav-link-icon"><i class="fas fa-scroll"></i></div>
                     내 스크랩
                 </a>

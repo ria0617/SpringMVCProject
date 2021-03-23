@@ -22,6 +22,19 @@
 					<li class="breadcrumb-item"><a href="/board/list">영화리뷰</a></li>
 					<li class="breadcrumb-item active">영화리뷰</li>
 				</ol>
+				<div class="form-row">
+					<div class="col-md-6">
+						<div class="form-group">
+							페이지: ${pageMaker.cri.page} / ${pageMaker.endPage}&nbsp;&nbsp;
+							총 게시물: ${pageMaker.totalCount}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group float-right">
+							<a class="btn btn-primary"  href="/board/writeView">글쓰기</a>
+						</div>
+					</div>
+				</div>
 				<div class="mb-4">
 					<div class="table-responsive">
 						<table class="table table-bordered" id="" width="100%" cellspacing="0">
@@ -38,7 +51,13 @@
 								<tr>
 									<td><c:out value="${list.bno}" /></td>
 									<td>
-										<a href="/board/readView?bno=${list.bno}"><c:out value="${list.title}" /></a>
+										<a href="/board/readView?
+											bno=${list.bno}&
+											page=${scri.page}&
+											perPageNum=${scri.perPageNum}&
+											searchType=${scri.searchType}&
+											keyword=${scri.keyword}"><c:out value="${list.title}" />
+										</a>
 									</td>
 									<td><c:out value="${list.writer}" /></td>
 									<td><fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd"/></td>
@@ -46,19 +65,41 @@
 								</c:forEach>
 							</tbody>
 						</table>
-						<div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-								<a class="btn btn-primary"  href="/board/writeView">글쓰기</a>
-						</div>
 					</div>
 					<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
 						<!-- 페이징 시작 -->
 						<div class="row">
-							<div class="col-sm-12 col-md-5">
-								<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
-									total: ${pageMaker.totalCount}
+							<div class="col-sm-12 col-md-6">
+								<div class="form-group">
+									<div class="search">
+										<div class="form-group">
+											<select class="custom-select float-left mr-1" name="searchType" style="display:inline-block; width:30%;">
+												<option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>검색</option>
+												<option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
+												<option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
+												<option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+												<option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
+											</select>
+											<div class="input-group float-left" style="width:50%;">
+												<input class="form-control form-control-sm"  type="text" name="keyword" id="keywordInput" value="${scri.keyword}" placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" />
+												<div class="input-group-append">
+													<button class="btn btn-primary" id="searchBtn"  type="button">
+														<i class="fas fa-search"></i>
+													</button>
+												</div>
+											</div>
+										</div>
+										<script>
+										$(function(){
+											$('#searchBtn').click(function() {
+												self.location = "list" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+											});
+										}); 
+										</script>
+									</div>
 								</div>
 							</div>
-							<div class="col-sm-12 col-md-7">
+							<div class="col-sm-12 col-md-6">
 								<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
 									<ul class="pagination">
 										<c:if test="${pageMaker.prev}">
