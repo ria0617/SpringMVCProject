@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.src.service.BoardService;
 import com.src.vo.BoardVO;
+import com.src.vo.Criteria;
+import com.src.vo.PageMaker;
 
 @Controller
 @RequestMapping("/board/*")
@@ -36,9 +38,17 @@ public class BoardController {
 	
 	// 게시판 목록 조회
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) throws Exception{
+	public String list(Model model, Criteria cri) throws Exception{
 		logger.info("list");
-		model.addAttribute("list",service.list());
+		model.addAttribute("list",service.list(cri));
+		
+		//페이징
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(service.listCount());
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
 		return "board/list";
 	}
 

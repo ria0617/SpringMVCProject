@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="../include/head.jsp" %>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 // 수정 
 function updateClick(){
@@ -20,7 +19,6 @@ function deleteClick(){
 	formObj.attr("method", "post");
 	formObj.submit();
 }
-
 </script>
 
 <body class="sb-nav-fixed">

@@ -50,6 +50,51 @@
 								<a class="btn btn-primary"  href="/board/writeView">글쓰기</a>
 						</div>
 					</div>
+					<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+						<!-- 페이징 시작 -->
+						<div class="row">
+							<div class="col-sm-12 col-md-5">
+								<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+									total: ${pageMaker.totalCount}
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-7">
+								<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+									<ul class="pagination">
+										<c:if test="${pageMaker.prev}">
+											<li class="paginate_button page-item previous" id="dataTable_previous">
+												<a href="list${pageMaker.makeQuery(pageMaker.startPage - 1)}" aria-controls="dataTable" data-dt-idx="${pageMaker.startPage}" tabindex="0" class="page-link">
+													<i class="fas fa-angle-double-left"></i>
+												</a>
+											</li>
+										</c:if>
+										<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+											<c:choose>
+												<c:when test="${pageMaker.cri.page == idx}">
+													<li class="paginate_button page-item active">
+														<a href="list${pageMaker.makeQuery(idx)}" aria-controls="dataTable" tabindex="0" data-dt-idx="${idx}" class="page-link">${idx}</a>
+													</li>
+												</c:when>
+												<c:when test="${pageMaker.cri.page != idx}">
+													<li class="paginate_button page-item">
+														<a href="list${pageMaker.makeQuery(idx)}" aria-controls="dataTable" tabindex="0" data-dt-idx="${idx}" class="page-link">${idx}</a>
+													</li>
+												</c:when>
+											</c:choose>
+										</c:forEach>
+										<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+											<li class="paginate_button page-item next" id="dataTable_next">
+												<a href="list${pageMaker.makeQuery(pageMaker.endPage + 1)}" aria-controls="dataTable" data-dt-idx="${pageMaker.endPage}" tabindex="0"  class="page-link" onclick="addClassName()">
+													<i class="fas fa-angle-double-right"></i>
+												</a>
+											</li>
+										</c:if>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- 페이징 끝 -->
+					</div>
 				</div>
 			</div>
 		</main>
