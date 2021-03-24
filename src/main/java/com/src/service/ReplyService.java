@@ -2,7 +2,7 @@ package com.src.service;
 
 import java.util.List;
 
-import com.src.vo.ReplyVO;
+import com.src.domain.ReplyVO;
 
 public interface ReplyService {
 	

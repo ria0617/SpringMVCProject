@@ -2,8 +2,8 @@ package com.src.dao;
 
 import java.util.List;
 
-import com.src.vo.BoardVO;
-import com.src.vo.SearchCriteria;
+import com.src.domain.BoardVO;
+import com.src.domain.SearchCriteria;
 
 public interface BoardDAO {
 	// 게시글 작성

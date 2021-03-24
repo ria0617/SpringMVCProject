@@ -1,4 +1,4 @@
-package com.src.vo;
+package com.src.domain;
 
 public class Criteria {
 	private int page;

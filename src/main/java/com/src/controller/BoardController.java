@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.src.domain.BoardVO;
+import com.src.domain.PageMaker;
+import com.src.domain.ReplyVO;
+import com.src.domain.SearchCriteria;
 import com.src.service.BoardService;
 import com.src.service.ReplyService;
-import com.src.vo.BoardVO;
-import com.src.vo.PageMaker;
-import com.src.vo.ReplyVO;
-import com.src.vo.SearchCriteria;
 
 @Controller
 @RequestMapping("/board/*")

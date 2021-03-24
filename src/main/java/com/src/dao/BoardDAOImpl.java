@@ -7,8 +7,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.src.vo.BoardVO;
-import com.src.vo.SearchCriteria;
+import com.src.domain.BoardVO;
+import com.src.domain.SearchCriteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {

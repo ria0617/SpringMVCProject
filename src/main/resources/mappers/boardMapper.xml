@@ -9,7 +9,7 @@
 	</insert>
 	
 	<!-- 목록조회 -->
-	<select id="listPage" resultType="com.src.vo.BoardVO" parameterType="com.src.vo.SearchCriteria">
+	<select id="listPage" resultType="com.src.domain.BoardVO" parameterType="com.src.domain.SearchCriteria">
 		SELECT BNO, TITLE, WRITER, REGDATE
 		FROM (
 				SELECT BNO, TITLE, WRITER, REGDATE,
@@ -23,7 +23,7 @@
 	</select>
 	
 	<!-- 게시물 총 갯수 조회 -->
-	<select id="listCount" resultType="int" parameterType="com.src.vo.SearchCriteria">
+	<select id="listCount" resultType="int" parameterType="com.src.domain.SearchCriteria">
 		SELECT COUNT(BNO)
 		FROM RE_BOARD
 		WHERE 1=1
@@ -42,14 +42,14 @@
 	</sql>
 	
 	<!-- 글보기  -->
-	<select id="read" parameterType="int" resultType="com.src.vo.BoardVO">
+	<select id="read" parameterType="int" resultType="com.src.domain.BoardVO">
 		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE
 		FROM RE_BOARD
 		WHERE BNO = #{bno}
 	</select>
 	
 	<!-- 글 수정 -->
-	<update id="update" parameterType="com.src.vo.BoardVO">
+	<update id="update" parameterType="com.src.domain.BoardVO">
 		UPDATE RE_BOARD
 		SET 
 			TITLE = #{title},

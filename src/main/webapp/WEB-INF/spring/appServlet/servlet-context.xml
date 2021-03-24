@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -23,6 +25,41 @@
 	
 	<context:component-scan base-package="com.src.controller" />
 	
+	<!-- 로그인 관련 -->
+	<beans:bean id="loginInterceptor" class="com.src.controller.commons.interceptor.LoginInterceptor" />
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/member/loginPost"/>
+			<beans:ref bean = "loginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- 접근권한 페이지 -->
+	<beans:bean id="authInterceptor" class="com.src.controller.commons.interceptor.AuthInterceptor"></beans:bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 로그인 했을 때만 접근 가능한 페이지 경로 -->
+			<mvc:mapping path="/board/list"/>
+			<beans:ref bean = "authInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- 회원가입 메일인증 -->
+	<beans:bean id="mailSender"	class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.gmail.com" />
+		<beans:property name="port" value="587" /><!-- 465 or 25 -->
+		<beans:property name="username" value="asdfqwe5317@gmail.com" />
+		<beans:property name="password" value="jdshdn!@247f" />
+		<beans:property name="defaultEncoding" value="utf-8" />
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
 	
 	
 </beans:beans>

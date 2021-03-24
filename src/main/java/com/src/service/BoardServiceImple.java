@@ -7,8 +7,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.src.dao.BoardDAO;
-import com.src.vo.BoardVO;
-import com.src.vo.SearchCriteria;
+import com.src.domain.BoardVO;
+import com.src.domain.SearchCriteria;
 
 @Service
 public class BoardServiceImple implements BoardService {

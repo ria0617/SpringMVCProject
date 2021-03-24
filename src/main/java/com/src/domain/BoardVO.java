@@ -1,4 +1,4 @@
-package com.src.vo;
+package com.src.domain;
 
 import java.sql.Date;
 

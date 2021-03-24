@@ -2,9 +2,9 @@ package com.src.service;
 
 import java.util.List;
 
-import com.src.vo.BoardVO;
-import com.src.vo.Criteria;
-import com.src.vo.SearchCriteria;
+import com.src.domain.BoardVO;
+import com.src.domain.Criteria;
+import com.src.domain.SearchCriteria;
 
 public interface BoardService {
 	// 게시글 작성
