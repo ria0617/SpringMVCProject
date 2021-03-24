@@ -31,6 +31,31 @@ function replyWriteBtn(){
 	formObj.attr("action", "/board/replyWrite");
 	formObj.submit();
 }
+//댓글 수정
+function replyUpdateClick(){
+	var formObj = $("form[name='replyForm2']");
+	formObj.attr("action", "/board/replyUpdate");
+	formObj.attr("method", "post");
+	formObj.submit();
+	document.getElementById('reply_content').classList.remove('hide');
+	document.getElementById('replyUpdateBtn').classList.remove('hide');
+	document.getElementById('reply_update').classList.add('hide');
+	document.getElementById('replyUpdateClick').classList.add('hide');
+}
+//댓글 삭제
+function replyDeleteClick(){
+	var formObj = $("form[name='replyForm2']");
+	formObj.attr("action", "/board/replyDelete");
+	formObj.attr("method", "post");
+	formObj.submit();
+}
+//수정 버튼 on off
+function replyUpdateBtn(){
+	document.getElementById('reply_content').classList.add('hide');
+	document.getElementById('replyUpdateBtn').classList.add('hide');
+	document.getElementById('reply_update').classList.remove('hide');
+	document.getElementById('replyUpdateClick').classList.remove('hide');
+}
 </script>
 
 <body class="sb-nav-fixed">
@@ -50,11 +75,11 @@ function replyWriteBtn(){
 				<div class="card shadow-lg border-0 rounded-lg">
 					<div class="card-body">
 						<form name="readForm" role="form" method="post" >
-							<input class="form-control py-4" id="bno" name="bno" type="hidden" value="${read.bno}"/>
+							<input id="bno" name="bno" type="hidden" value="${read.bno}"/>
 							<input type="hidden" id="page" name="page" value="${scri.page}"> 
 							<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
 							<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
-							<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
+							<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
 						</form>
 						<div class="form-group">
 							<label class="small mb-1" for="bno">글 번호</label>
@@ -80,6 +105,22 @@ function replyWriteBtn(){
 						</div>
 					</div>
 					<div class="card-footer text-left">
+						<!-- 댓글 쓰기 -->
+						<form name="replyForm" method="post">
+							<input type="hidden" id="bno" name="bno" value="${read.bno}" />
+							<input type="hidden" id="page" name="page" value="${scri.page}">
+							<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}">
+							<input type="hidden"id="searchType" name="searchType" value="${scri.searchType}">
+							<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
+							<div class="form-group">
+								<input class="form-control py-4" type="text" id="writer" name="writer" placeholder="작성자" />
+								<textarea  id="content" name="content" ></textarea>
+							</div>
+							<div class="form-group align-items-center justify-content-between mt-4 mb-0">
+								<button type="button" class="btn btn-primary" onclick="replyWriteBtn()">작성</button>
+							</div>
+						</form>
+						<!-- 댓글 쓰기 끝 -->
 						<!-- 댓글 보기-->
 						<div id="reply">
 							<ol class="replyList">
@@ -90,32 +131,26 @@ function replyWriteBtn(){
 											작성 날짜 :
 											<fmt:formatDate value="${replyList.regdate}" pattern="yyyy-MM-dd" />
 										</p>
-										<p>${replyList.content}</p>
+										<div class="" id="reply_content">${replyList.content}</div>
+										<!-- 댓글 수정 삭제-->
+										<form name="replyForm2" role="form" method="post" >
+											<input id="bno" name="bno" type="hidden" value="${read.bno}"/>
+											<input id="rno" name="rno" type="hidden" value="${replyList.rno}"/>
+											<div class="hide"  id="reply_update">
+												<textarea id="content" name="content" >${replyList.content}</textarea>
+											</div>
+										</form>
+										<div class="form-group align-items-center justify-content-between mt-4 mb-0">
+											<button type="button" class="btn btn-primary"  id="replyUpdateBtn"  onclick="replyUpdateBtn()" data-rno="${replyList.rno}">수정</button>
+											<button type="button" class="btn btn-primary hide"  id="replyUpdateClick"  onclick="replyUpdateClick()" data-rno="${replyList.rno}">저장</button>
+											<button type="button" class="btn btn-primary"  onclick="replyDeleteClick()" data-rno="${replyList.rno}">삭제</button>
+										</div>
+										<!-- 댓글 수정 삭제 끝 -->
 									</li>
 								</c:forEach>
 							</ol>
 						</div>
 						<!-- 댓글 보기 끝-->
-						<!-- 댓글 쓰기 -->
-							<form name="replyForm" method="post">
-								<input type="hidden" id="bno" name="bno" value="${read.bno}" />
-								<input type="hidden" id="page" name="page" value="${scri.page}">
-								<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> <input type="hidden"id="searchType" name="searchType" value="${scri.searchType}">
-								<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
-								<div class="form-group">
-									<label class="small mb-1" for="writer">댓글 작성자</label>
-									<input class="form-control py-4" type="text" id="writer" name="writer" />
-									<label class="small mb-1" for="content">댓글 내용</label>
-									<input class="form-control py-4" type="text" id="content" name="content" />
-								</div>
-								<div class="form-group align-items-center justify-content-between mt-4 mb-0">
-									<button type="button" class="btn btn-primary" onclick="replyWriteBtn()">작성</button>
-								</div>
-							</form>
-							<!-- 댓글 쓰기 끝 -->
-						<div class="small">
-							<a href="#">계정이 있으면 로그인 해주세요</a>
-						</div>
 					</div>
 				</div>
 			</div>

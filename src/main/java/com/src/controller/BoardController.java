@@ -121,6 +121,57 @@ public class BoardController {
 		rttr.addAttribute("perPageNum", scri.getPerPageNum());
 		rttr.addAttribute("searchType", scri.getSearchType());
 		rttr.addAttribute("keyword", scri.getKeyword());
+		return "redirect:/board/readView";
+	}
+	
+	//댓글 수정 get
+	@RequestMapping(value="/replyUpdateView", method = RequestMethod.GET)
+	public String replyUpdateView(ReplyVO replyVO, SearchCriteria scri, Model model) throws Exception {
+		logger.info("댓글 수정 get");
+		
+		model.addAttribute("replyUpdate", replyService.selectReply(replyVO.getRno()));
+		model.addAttribute("scri", scri);
+		
+		return "board/replyUpdateView";
+	}
+	
+	//댓글 수정 post
+	@RequestMapping(value="/replyUpdate", method = RequestMethod.POST)
+	public String replyUpdate(ReplyVO replyVO, SearchCriteria scri, RedirectAttributes rttr, Model model) throws Exception {
+		System.out.println(replyVO);
+		//수정 댓글 조회
+		model.addAttribute("replyUpdate", replyService.selectReply(replyVO.getRno()));
+		model.addAttribute("scri", scri);
+		
+		logger.info("댓글 수정 post");
+		replyService.updateReply(replyVO);
+		
+		rttr.addAttribute("bno", replyVO.getBno());
+		rttr.addAttribute("page", scri.getPage());
+		rttr.addAttribute("perPageNum", scri.getPerPageNum());
+		rttr.addAttribute("searchType", scri.getSearchType());
+		rttr.addAttribute("keyword", scri.getKeyword());
+		
+		return "redirect:/board/readView";
+	}
+		
+	//댓글 삭제
+	@RequestMapping(value="/replyDelete", method = RequestMethod.POST)
+	public String replyDelete(ReplyVO replyVO, SearchCriteria scri, RedirectAttributes rttr, Model model) throws Exception {
+		logger.info("댓글 삭제");
+		System.out.println(replyVO);
+		//삭제 댓글 조회
+		model.addAttribute("replyDelete", replyService.selectReply(replyVO.getRno()));
+		model.addAttribute("scri", scri);
+		
+		//댓글 삭제
+		replyService.deleteReply(replyVO);
+		
+		rttr.addAttribute("bno", replyVO.getBno());
+		rttr.addAttribute("page", scri.getPage());
+		rttr.addAttribute("perPageNum", scri.getPerPageNum());
+		rttr.addAttribute("searchType", scri.getSearchType());
+		rttr.addAttribute("keyword", scri.getKeyword());
 		
 		return "redirect:/board/readView";
 	}

@@ -70,33 +70,30 @@
 						<!-- 검색 시작 -->
 						<div class="row">
 							<div class="col-sm-12 col-md-6">
-								<div class="form-group">
-									<div class="search">
-										<div class="form-group">
-											<select class="custom-select float-left mr-1" name="searchType" style="display:inline-block; width:30%;">
-												<option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>검색</option>
-												<option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
-												<option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
-												<option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
-												<option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
-											</select>
-											<div class="input-group float-left" style="width:50%;">
-												<input class="form-control form-control-sm"  type="text" name="keyword" id="keywordInput" value="${scri.keyword}" placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" />
-												<div class="input-group-append">
-													<button class="btn btn-primary" id="searchBtn"  type="button">
-														<i class="fas fa-search"></i>
-													</button>
-												</div>
+								<div class="search">
+									<select class="custom-select float-left mr-1" name="searchType" style="display:inline-block; width:30%;">
+										<option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>검색</option>
+										<option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
+										<option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
+										<option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+										<option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
+									</select>
+									<div class="input-group float-left" style="width:50%;">
+											<input class="form-control form-control-sm"  type="text" name="keyword" id="keywordInput" value="${scri.keyword}" placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" />
+											<div class="input-group-append">
+												<button class="btn btn-primary" id="searchBtn"  type="button">
+													<i class="fas fa-search"></i>
+												</button>
 											</div>
 										</div>
-										<script>
-										$(function(){
-											$('#searchBtn').click(function() {
-												self.location = "list" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
-											});
-										}); 
-										</script>
-									</div>
+
+									<script>
+									$(function(){
+										$('#searchBtn').click(function() {
+											self.location = "list" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+										});
+									}); 
+									</script>
 								</div>
 							</div>
 							<!-- 검색 끝 -->

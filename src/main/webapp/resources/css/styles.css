@@ -5352,7 +5352,9 @@ a.close.disabled {
 .toast.hide {
   display: none;
 }
-
+.hide{
+	display: none;
+}
 .toast-header {
   display: flex;
   align-items: center;
