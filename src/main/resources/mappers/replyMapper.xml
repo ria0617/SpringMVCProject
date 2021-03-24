@@ -12,4 +12,9 @@
 		WHERE BNO = #{bno}
 	</select>
 
+	<!-- 댓글 작성 -->
+	<insert id="writeReply">
+		INSERT INTO RE_REPLY(BNO, RNO, CONTENT, WRITER)
+		VALUES(#{bno}, RE_REPLY_SEQ.NEXTVAL, #{content}, #{writer})
+	</insert>
 </mapper>

@@ -19,13 +19,18 @@ function deleteClick(){
 	formObj.attr("method", "post");
 	formObj.submit();
 }
-//목록
-$(".list_btn").on("click", function(){
-
-location.href = "/board/list?page=${scri.page}"
-+"&perPageNum=${scri.perPageNum}"
-+"&searchType=${scri.searchType}&keyword=${scri.keyword}";
-})
+//페이징 목록 유지
+function pageListClick(){
+	location.href = "/board/list?page=${scri.page}"
+	+"&perPageNum=${scri.perPageNum}"
+	+"&searchType=${scri.searchType}&keyword=${scri.keyword}";
+}
+//댓글 작성
+function replyWriteBtn(){
+	var formObj = $("form[name='replyForm']");
+	formObj.attr("action", "/board/replyWrite");
+	formObj.submit();
+}
 </script>
 
 <body class="sb-nav-fixed">
@@ -71,11 +76,11 @@ location.href = "/board/list?page=${scri.page}"
 						<div class="form-group align-items-center justify-content-between mt-4 mb-0">
 							<button class="btn btn-primary" type="submit" onclick="updateClick()">수정</button>
 							<button class="btn btn-primary" type="submit" onclick="deleteClick()">삭제</button>
-							<a class="small list_btn"  href="/board/list">목록으로</a>
+							<button class="btn btn-primary float-right" type="submit" onclick="pageListClick()">목록으로</button>
 						</div>
 					</div>
-					<div class="card-footer text-center">
-						<!-- 댓글 -->
+					<div class="card-footer text-left">
+						<!-- 댓글 보기-->
 						<div id="reply">
 							<ol class="replyList">
 								<c:forEach items="${replyList}" var="replyList">
@@ -90,6 +95,24 @@ location.href = "/board/list?page=${scri.page}"
 								</c:forEach>
 							</ol>
 						</div>
+						<!-- 댓글 보기 끝-->
+						<!-- 댓글 쓰기 -->
+							<form name="replyForm" method="post">
+								<input type="hidden" id="bno" name="bno" value="${read.bno}" />
+								<input type="hidden" id="page" name="page" value="${scri.page}">
+								<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> <input type="hidden"id="searchType" name="searchType" value="${scri.searchType}">
+								<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
+								<div class="form-group">
+									<label class="small mb-1" for="writer">댓글 작성자</label>
+									<input class="form-control py-4" type="text" id="writer" name="writer" />
+									<label class="small mb-1" for="content">댓글 내용</label>
+									<input class="form-control py-4" type="text" id="content" name="content" />
+								</div>
+								<div class="form-group align-items-center justify-content-between mt-4 mb-0">
+									<button type="button" class="btn btn-primary" onclick="replyWriteBtn()">작성</button>
+								</div>
+							</form>
+							<!-- 댓글 쓰기 끝 -->
 						<div class="small">
 							<a href="#">계정이 있으면 로그인 해주세요</a>
 						</div>

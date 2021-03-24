@@ -67,7 +67,7 @@
 						</table>
 					</div>
 					<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-						<!-- 페이징 시작 -->
+						<!-- 검색 시작 -->
 						<div class="row">
 							<div class="col-sm-12 col-md-6">
 								<div class="form-group">
@@ -99,6 +99,8 @@
 									</div>
 								</div>
 							</div>
+							<!-- 검색 끝 -->
+							<!-- 페이징 시작 -->
 							<div class="col-sm-12 col-md-6">
 								<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
 									<ul class="pagination">

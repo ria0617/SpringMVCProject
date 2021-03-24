@@ -25,6 +25,10 @@
 					<div class="card-body">
 						<form role="readForm" action="/board/update" role="form" method="post" >
 							<input class="form-control py-4" id="bno" name="bno" type="hidden" value="${update.bno}"/>
+							<input type="hidden" id="page" name="page" value="${scri.page}"> 
+							<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
+							<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
+							<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
 							<div class="form-group">
 								<label class="small mb-1" for="bno">글 번호</label>
 								${read.bno}&nbsp;&nbsp;|&nbsp;&nbsp;

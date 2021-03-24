@@ -22,5 +22,11 @@ public class ReplyDAOImpl implements ReplyDAO{
 	public List<ReplyVO> readReply(int bno) throws Exception {
 		return sql.selectList(namespace + ".readReply", bno);
 	}
+	
+	//댓글 작성
+	@Override
+	public void writeReply(ReplyVO replyVO) throws Exception {
+		sql.insert(namespace + ".writeReply", replyVO);
+	}
 
 }
