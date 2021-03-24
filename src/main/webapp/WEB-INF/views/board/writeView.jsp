@@ -25,17 +25,18 @@
 				<div class="card shadow-lg border-0 rounded-lg">
 					<div class="card-body">
 						<form role="form" method="post" action="/board/write">
-							<div class="form-group">
-								<label class="small mb-1" >제목</label>
-								<input class="form-control py-4" id="title" name="title" type="text" placeholder="제목을 입력해주세요" />
-							</div>
 							<div class="form-row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="small mb-1" >작성자</label>
-										<input class="form-control py-4" id="writer" name="writer" type="text" placeholder="작성자" />
+										${login.userId}
+										<input class="form-control py-4" id="writer" name="writer" type="hidden" value="${login.userId}" />
 									</div>
 								</div>
+							</div>
+							<div class="form-group">
+								<label class="small mb-1" >제목</label>
+								<input class="form-control py-4" id="title" name="title" type="text" placeholder="제목을 입력해주세요" />
 							</div>
 							<div class="form-group">
 								<label class="small mb-1" >내용</label>

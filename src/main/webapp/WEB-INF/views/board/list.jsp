@@ -29,11 +29,13 @@
 							총 게시물: ${pageMaker.totalCount}
 						</div>
 					</div>
+					<c:if test="${not empty login}">
 					<div class="col-md-6">
 						<div class="form-group float-right">
 							<a class="btn btn-primary"  href="/board/writeView">글쓰기</a>
 						</div>
 					</div>
+					</c:if>
 				</div>
 				<div class="mb-4">
 					<div class="table-responsive">

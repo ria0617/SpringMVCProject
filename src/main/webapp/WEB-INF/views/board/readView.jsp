@@ -99,12 +99,16 @@ function replyUpdateBtn(){
 							${read.content}
 						</div>
 						<div class="form-group align-items-center justify-content-between mt-4 mb-0">
+							<c:if test="${login.userId == read.writer}">
 							<button class="btn btn-primary" type="submit" onclick="updateClick()">수정</button>
 							<button class="btn btn-primary" type="submit" onclick="deleteClick()">삭제</button>
+							</c:if>
 							<button class="btn btn-primary float-right" type="submit" onclick="pageListClick()">목록으로</button>
 						</div>
 					</div>
 					<div class="card-footer text-left">
+						<h4 class="mb-2">댓글 목록</h4>
+						<c:if test="${not empty login}">
 						<!-- 댓글 쓰기 -->
 						<form name="replyForm" method="post">
 							<input type="hidden" id="bno" name="bno" value="${read.bno}" />
@@ -112,39 +116,43 @@ function replyUpdateBtn(){
 							<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}">
 							<input type="hidden"id="searchType" name="searchType" value="${scri.searchType}">
 							<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
-							<div class="form-group">
-								<input class="form-control py-4" type="text" id="writer" name="writer" placeholder="작성자" />
-								<textarea  id="content" name="content" ></textarea>
-							</div>
-							<div class="form-group align-items-center justify-content-between mt-4 mb-0">
-								<button type="button" class="btn btn-primary" onclick="replyWriteBtn()">작성</button>
+							<div class="form-group row">
+								<div class="col-md-11">
+									<input class="form-control py-4" type="hidden" id="writer" name="writer" value="${login.userId}"/>
+									<textarea  class="form-control py-3"  id="content" name="content" ></textarea>
+								</div>
+								<div class="col-md-1 align-items-center justify-content-between">
+									<button type="button" class="btn btn-primary btn-block py-4" onclick="replyWriteBtn()">댓글 작성</button>
+								</div>
 							</div>
 						</form>
+						</c:if>
 						<!-- 댓글 쓰기 끝 -->
 						<!-- 댓글 보기-->
 						<div id="reply">
 							<ol class="replyList">
 								<c:forEach items="${replyList}" var="replyList">
 									<li>
-										<p>
-											작성자 : ${replyList.writer}<br /> 
-											작성 날짜 :
-											<fmt:formatDate value="${replyList.regdate}" pattern="yyyy-MM-dd" />
-										</p>
+										<div>
+											작성자 : ${replyList.writer}&nbsp;&nbsp;
+											작성 날짜 : <fmt:formatDate value="${replyList.regdate}" pattern="yyyy-MM-dd" />
+										</div>
 										<div class="" id="reply_content">${replyList.content}</div>
 										<!-- 댓글 수정 삭제-->
 										<form name="replyForm2" role="form" method="post" >
 											<input id="bno" name="bno" type="hidden" value="${read.bno}"/>
 											<input id="rno" name="rno" type="hidden" value="${replyList.rno}"/>
 											<div class="hide"  id="reply_update">
-												<textarea id="content" name="content" >${replyList.content}</textarea>
+												<textarea class="form-control py-4" id="content" name="content" >${replyList.content}</textarea>
 											</div>
 										</form>
+										<c:if test="${login.userId == read.writer}">
 										<div class="form-group align-items-center justify-content-between mt-4 mb-0">
 											<button type="button" class="btn btn-primary"  id="replyUpdateBtn"  onclick="replyUpdateBtn()" data-rno="${replyList.rno}">수정</button>
 											<button type="button" class="btn btn-primary hide"  id="replyUpdateClick"  onclick="replyUpdateClick()" data-rno="${replyList.rno}">저장</button>
 											<button type="button" class="btn btn-primary"  onclick="replyDeleteClick()" data-rno="${replyList.rno}">삭제</button>
 										</div>
+										</c:if>
 										<!-- 댓글 수정 삭제 끝 -->
 									</li>
 								</c:forEach>
