@@ -3,6 +3,8 @@ package com.src.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,10 +17,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.src.domain.BoardVO;
 import com.src.domain.PageMaker;
+import com.src.domain.PushVO;
 import com.src.domain.ReplyVO;
 import com.src.domain.SearchCriteria;
+import com.src.domain.UserVO;
 import com.src.service.BoardService;
+import com.src.service.PushService;
 import com.src.service.ReplyService;
+import com.src.service.UserService;
 
 @Controller
 @RequestMapping("/board/*")
@@ -30,6 +36,12 @@ public class BoardController {
 	
 	@Inject
 	ReplyService replyService;
+	
+	@Inject
+	PushService pushService;
+	
+	@Inject
+	UserService userService;
 	
 	// 게시판 글 작성 화면
 	@RequestMapping(value = "/writeView", method = RequestMethod.GET)
@@ -62,7 +74,26 @@ public class BoardController {
 
 	// 게시물 보기
 	@RequestMapping(value = "/readView", method = RequestMethod.GET)
-	public String read(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception{
+	public String read(UserVO userVO, PushVO pushVO, BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model, HttpSession httpsession, RedirectAttributes rttr) throws Exception{
+		
+		//추천버튼제어
+		UserVO login = (UserVO) httpsession.getAttribute("login");
+		if(login == null) {
+			System.out.println("비회원");
+		}else {
+			String sessionId = login.getUserId();
+			pushVO.setUserId(sessionId);
+			System.out.println(pushVO);
+			int pushCheck = pushService.pushCheck(pushVO);
+			System.out.println(pushCheck);
+			if(pushCheck == 1) {
+				model.addAttribute("pushCheck", pushCheck);
+			}else {
+				model.addAttribute("pushCheck", pushCheck);
+			}
+			System.out.println("회원" + sessionId);
+		}
+		
 		logger.info("게시글 읽기");
 		model.addAttribute("read", service.read(boardVO.getBno()));
 		model.addAttribute("list",service.list(scri));
@@ -70,6 +101,10 @@ public class BoardController {
 		//댓글 보기
 		List<ReplyVO> replyList = replyService.readReply(boardVO.getBno());
 		model.addAttribute("replyList", replyList);
+		
+		//총 추천수
+		int Ptotal = pushService.totalPush(pushVO);
+		model.addAttribute("push", Ptotal);
 		
 		return "board/readView";
 	}
@@ -175,4 +210,41 @@ public class BoardController {
 		
 		return "redirect:/board/readView";
 	}
+	
+	//추천하기
+	@RequestMapping(value = "/pushIn", method = RequestMethod.POST)
+	public String pushIn(ReplyVO replyVO, PushVO pushVO, SearchCriteria scri, RedirectAttributes rttr, Model model) throws Exception{
+		logger.info("추천하기");
+		
+		//페이지 값 가져오기
+		model.addAttribute("scri", scri);
+		rttr.addAttribute("bno", replyVO.getBno());
+		rttr.addAttribute("page", scri.getPage());
+		rttr.addAttribute("perPageNum", scri.getPerPageNum());
+		rttr.addAttribute("searchType", scri.getSearchType());
+		rttr.addAttribute("keyword", scri.getKeyword());
+
+		pushService.pushIn(pushVO);
+		
+		return "redirect:/board/readView";
+	}
+	
+	//추천회수
+	@RequestMapping(value = "/pushOut", method = RequestMethod.POST)
+	public String pushOut(ReplyVO replyVO, PushVO pushVO, SearchCriteria scri, RedirectAttributes rttr, Model model) throws Exception{
+		logger.info("추천하기");
+		
+		//페이지 값 가져오기
+		model.addAttribute("scri", scri);
+		rttr.addAttribute("bno", replyVO.getBno());
+		rttr.addAttribute("page", scri.getPage());
+		rttr.addAttribute("perPageNum", scri.getPerPageNum());
+		rttr.addAttribute("searchType", scri.getSearchType());
+		rttr.addAttribute("keyword", scri.getKeyword());
+
+		pushService.pushOut(pushVO);
+		
+		return "redirect:/board/readView";
+	}
+	
 }

@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="../include/head.jsp" %>
+<style>
+.hide{display:none !important;}
+</style>
 <script type="text/javascript">
 // 수정 
 function updateClick(){
@@ -56,6 +59,20 @@ function replyUpdateBtn(){
 	document.getElementById('reply_update').classList.remove('hide');
 	document.getElementById('replyUpdateClick').classList.remove('hide');
 }
+//추천하기
+function pushClick(){
+	var formObj = $("form[name='pushForm']");
+	formObj.attr("action", "/board/pushIn");
+	formObj.attr("method", "post");
+	formObj.submit();
+}
+//추천회수
+function pushOutClick(){
+	var formObj = $("form[name='pushForm']");
+	formObj.attr("action", "/board/pushOut");
+	formObj.attr("method", "post");
+	formObj.submit();
+}
 </script>
 
 <body class="sb-nav-fixed">
@@ -81,6 +98,14 @@ function replyUpdateBtn(){
 							<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
 							<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
 						</form>
+						<form name="pushForm" role="form" method="post" >
+							<input id="bno" name="bno" type="hidden" value="${read.bno}"/>
+							<input type="hidden" id="userId" name="userId" value="${login.userId}">
+							<input type="hidden" id="page" name="page" value="${scri.page}"> 
+							<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
+							<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
+							<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
+						</form>
 						<div class="form-group">
 							<label class="small mb-1" for="bno">글 번호</label>
 							${read.bno}&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -98,12 +123,22 @@ function replyUpdateBtn(){
 						<div class="form-group">
 							${read.content}
 						</div>
+						총 추천수: ${push} <br>
+						추천한 회원여부 확인: ${pushCheck}
 						<div class="form-group align-items-center justify-content-between mt-4 mb-0">
 							<c:if test="${login.userId == read.writer}">
 							<button class="btn btn-primary" type="submit" onclick="updateClick()">수정</button>
 							<button class="btn btn-primary" type="submit" onclick="deleteClick()">삭제</button>
 							</c:if>
 							<button class="btn btn-primary float-right" type="submit" onclick="pageListClick()">목록으로</button>
+							<c:if test="${not empty login}">
+								<c:if test="${pushCheck == 0}">
+								<button class="btn btn-primary float-right" type="submit" onclick="pushClick()">추천하기</button>
+								</c:if>
+								<c:if test="${pushCheck == 1}">
+								<button class="btn btn-primary float-right" type="submit" onclick="pushOutClick()">추천회수</button>
+								</c:if>
+							</c:if>
 						</div>
 					</div>
 					<div class="card-footer text-left">
