@@ -38,11 +38,5 @@ public class PushDAOImpl implements PushDAO {
 	public void pushOut(PushVO pushVO) throws Exception {
 		sqlSession.delete(namespace + ".pushOut", pushVO);
 	}
-	
-	//추천버튼 제어
-	@Override
-	public String ChkPushId(int bno) throws Exception {
-		return sqlSession.selectOne(namespace + ".ChkPushId", bno);
-	}
 
 }

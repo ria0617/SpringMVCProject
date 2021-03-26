@@ -35,29 +35,20 @@ function replyWriteBtn(){
 	formObj.submit();
 }
 //댓글 수정
-function replyUpdateClick(){
-	var formObj = $("form[name='replyForm2']");
+function replyUpdateClick(rno){
+	var myRno = 'replyFormMy' + rno;
+	var formObj = $("form[name="+myRno+"]");
 	formObj.attr("action", "/board/replyUpdate");
 	formObj.attr("method", "post");
 	formObj.submit();
-	document.getElementById('reply_content').classList.remove('hide');
-	document.getElementById('replyUpdateBtn').classList.remove('hide');
-	document.getElementById('reply_update').classList.add('hide');
-	document.getElementById('replyUpdateClick').classList.add('hide');
 }
 //댓글 삭제
-function replyDeleteClick(){
-	var formObj = $("form[name='replyForm2']");
+function replyDeleteClick(rno){
+	var myRno = 'replyFormMy' + rno;
+	var formObj = $("form[name="+myRno+"]");
 	formObj.attr("action", "/board/replyDelete");
 	formObj.attr("method", "post");
 	formObj.submit();
-}
-//수정 버튼 on off
-function replyUpdateBtn(){
-	document.getElementById('reply_content').classList.add('hide');
-	document.getElementById('replyUpdateBtn').classList.add('hide');
-	document.getElementById('reply_update').classList.remove('hide');
-	document.getElementById('replyUpdateClick').classList.remove('hide');
 }
 //추천하기
 function pushClick(){
@@ -123,8 +114,7 @@ function pushOutClick(){
 						<div class="form-group">
 							${read.content}
 						</div>
-						총 추천수: ${push} <br>
-						추천한 회원여부 확인: ${pushCheck}
+						총 추천수: ${push} 
 						<div class="form-group align-items-center justify-content-between mt-4 mb-0">
 							<c:if test="${login.userId == read.writer}">
 							<button class="btn btn-primary" type="submit" onclick="updateClick()">수정</button>
@@ -167,25 +157,39 @@ function pushOutClick(){
 						<div id="reply">
 							<ol class="replyList">
 								<c:forEach items="${replyList}" var="replyList">
-									<li>
+									<li class="py-4">
 										<div>
+											댓글번호: ${replyList.rno}
 											작성자 : ${replyList.writer}&nbsp;&nbsp;
 											작성 날짜 : <fmt:formatDate value="${replyList.regdate}" pattern="yyyy-MM-dd" />
 										</div>
 										<div class="" id="reply_content">${replyList.content}</div>
-										<!-- 댓글 수정 삭제-->
-										<form name="replyForm2" role="form" method="post" >
-											<input id="bno" name="bno" type="hidden" value="${read.bno}"/>
-											<input id="rno" name="rno" type="hidden" value="${replyList.rno}"/>
-											<div class="hide"  id="reply_update">
-												<textarea class="form-control py-4" id="content" name="content" >${replyList.content}</textarea>
-											</div>
-										</form>
-										<c:if test="${login.userId == read.writer}">
+										<c:if test="${login.userId == replyList.writer}">
+											<form name="replyFormMy${replyList.rno}" role="form" method="post" >
+												<input id="bno" name="bno" type="hidden" value="${read.bno}"/>
+												<input id="rno" name="rno" type="hidden" value="${replyList.rno}"/>
+												<input id="writer" name="writer" type="hidden" value="${replyList.writer}"/>
+												<script type="text/javascript">
+													//댓글 버튼제어
+													function replyUpdateBtn${replyList.rno}(rno){
+														var replyRno = ${replyList.rno};
+														var myRno = rno;
+														if(replyRno==myRno){
+															document.getElementById('reContent${replyList.rno}').classList.remove('hide');
+															document.getElementById('replyUpdateClick${replyList.rno}').classList.remove('hide');
+															document.getElementById('replyUpdateBtn${replyList.rno}').classList.add('hide');
+														}else{
+														}
+													}
+												</script>
+												<div class="hide" id="reContent${replyList.rno}">
+													<textarea class="form-control py-4" id="content" name="content" >${replyList.content}</textarea>
+												</div>
+											</form>
 										<div class="form-group align-items-center justify-content-between mt-4 mb-0">
-											<button type="button" class="btn btn-primary"  id="replyUpdateBtn"  onclick="replyUpdateBtn()" data-rno="${replyList.rno}">수정</button>
-											<button type="button" class="btn btn-primary hide"  id="replyUpdateClick"  onclick="replyUpdateClick()" data-rno="${replyList.rno}">저장</button>
-											<button type="button" class="btn btn-primary"  onclick="replyDeleteClick()" data-rno="${replyList.rno}">삭제</button>
+											<button type="button" class="btn btn-primary"  id="replyUpdateBtn${replyList.rno}"  onclick="replyUpdateBtn${replyList.rno}(${replyList.rno})" data-rno="${replyList.rno}">수정</button>
+											<button type="button" class="btn btn-primary hide"  id="replyUpdateClick${replyList.rno}"  onclick="replyUpdateClick(${replyList.rno})" data-rno="${replyList.rno}">저장</button>
+											<button type="button" class="btn btn-primary"  onclick="replyDeleteClick(${replyList.rno})" data-rno="${replyList.rno}">삭제</button>
 										</div>
 										</c:if>
 										<!-- 댓글 수정 삭제 끝 -->

@@ -37,10 +37,4 @@ public class PushServiceImpl implements PushService {
 		dao.pushOut(pushVO);
 	}
 	
-	//추천버튼 제어
-	@Override
-	public String ChkPushId(int bno) throws Exception {
-		return dao.ChkPushId(bno);
-	}
-
 }

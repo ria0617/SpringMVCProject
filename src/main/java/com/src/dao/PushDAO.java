@@ -16,6 +16,4 @@ public interface PushDAO {
 	//추천회수
 	public void pushOut(PushVO pushVO) throws Exception;
 	
-	//추천버튼 제어
-	public String ChkPushId(int bno) throws Exception;
 }

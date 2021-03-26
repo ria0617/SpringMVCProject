@@ -31,11 +31,5 @@
 		where bno = #{bno}
 		and user_id = #{userId}
 	</delete>
-	
-	<!-- 추천 아이디 확인 -->
-	<select id="ChkPushId">
-		select distinct user_id
-		from push
-		where bno = #{bno}
-	</select>
+
 </mapper>

@@ -78,9 +78,7 @@ public class BoardController {
 		
 		//추천버튼제어
 		UserVO login = (UserVO) httpsession.getAttribute("login");
-		if(login == null) {
-			System.out.println("비회원");
-		}else {
+		if(login != null) {
 			String sessionId = login.getUserId();
 			pushVO.setUserId(sessionId);
 			System.out.println(pushVO);
@@ -159,27 +157,17 @@ public class BoardController {
 		return "redirect:/board/readView";
 	}
 	
-	//댓글 수정 get
-	@RequestMapping(value="/replyUpdateView", method = RequestMethod.GET)
-	public String replyUpdateView(ReplyVO replyVO, SearchCriteria scri, Model model) throws Exception {
-		logger.info("댓글 수정 get");
-		
-		model.addAttribute("replyUpdate", replyService.selectReply(replyVO.getRno()));
-		model.addAttribute("scri", scri);
-		
-		return "board/replyUpdateView";
-	}
-	
 	//댓글 수정 post
 	@RequestMapping(value="/replyUpdate", method = RequestMethod.POST)
 	public String replyUpdate(ReplyVO replyVO, SearchCriteria scri, RedirectAttributes rttr, Model model) throws Exception {
-		System.out.println(replyVO);
+		System.out.println("들어온 값: " + replyVO);
 		//수정 댓글 조회
 		model.addAttribute("replyUpdate", replyService.selectReply(replyVO.getRno()));
 		model.addAttribute("scri", scri);
 		
 		logger.info("댓글 수정 post");
 		replyService.updateReply(replyVO);
+		System.out.println("updateReply: " + replyVO);
 		
 		rttr.addAttribute("bno", replyVO.getBno());
 		rttr.addAttribute("page", scri.getPage());
