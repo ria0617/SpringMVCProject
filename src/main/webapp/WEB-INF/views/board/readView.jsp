@@ -131,6 +131,7 @@ function pushOutClick(){
 							</c:if>
 						</div>
 					</div>
+					<!-- 댓글 기능 전체 -->
 					<div class="card-footer text-left">
 						<h4 class="mb-2">댓글 목록</h4>
 						<c:if test="${not empty login}">
@@ -164,6 +165,7 @@ function pushOutClick(){
 											작성 날짜 : <fmt:formatDate value="${replyList.regdate}" pattern="yyyy-MM-dd" />
 										</div>
 										<div class="" id="reply_content">${replyList.content}</div>
+										<!-- 댓글 수정 삭제 -->
 										<c:if test="${login.userId == replyList.writer}">
 											<form name="replyFormMy${replyList.rno}" role="form" method="post" >
 												<input id="bno" name="bno" type="hidden" value="${read.bno}"/>
@@ -197,8 +199,9 @@ function pushOutClick(){
 								</c:forEach>
 							</ol>
 						</div>
-						<!-- 댓글 보기 끝-->
+						<!-- 댓글 보기 끝 -->
 					</div>
+					<!-- 댓글 전체 끝 -->
 				</div>
 			</div>
 
