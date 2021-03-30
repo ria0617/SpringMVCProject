@@ -11,7 +11,7 @@ import com.src.domain.BoardVO;
 import com.src.domain.SearchCriteria;
 
 @Service
-public class BoardServiceImple implements BoardService {
+public class BoardServiceImpl implements BoardService {
 	
 	@Inject
 	private BoardDAO dao;

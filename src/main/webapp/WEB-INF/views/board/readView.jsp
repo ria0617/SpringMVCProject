@@ -64,6 +64,21 @@ function pushOutClick(){
 	formObj.attr("method", "post");
 	formObj.submit();
 }
+//스크랩
+function scrapIn(){
+	var scrapUrl = '/board/readView?bno=${read.bno}';
+	$('input[name=scrapAd]').attr('value',scrapUrl);
+	var formObj = $("form[name='scrapForm']");
+	formObj.attr("action", "/board/scrapIn");
+	formObj.attr("method", "post");
+	formObj.submit();
+}
+
+//스크랩 확인 문구
+var msg = "${msg}";
+if (msg === "scrapOk") {
+alert ("스크랩되었습니다");
+}
 </script>
 
 <body class="sb-nav-fixed">
@@ -79,7 +94,6 @@ function pushOutClick(){
 					<li class="breadcrumb-item"><a href="/board/list">영화리뷰</a></li>
 					<li class="breadcrumb-item active">영화리뷰 읽기</li>
 				</ol>
-				
 				<div class="card shadow-lg border-0 rounded-lg">
 					<div class="card-body">
 						<form name="readForm" role="form" method="post" >
@@ -91,6 +105,16 @@ function pushOutClick(){
 						</form>
 						<form name="pushForm" role="form" method="post" >
 							<input id="bno" name="bno" type="hidden" value="${read.bno}"/>
+							<input type="hidden" id="userId" name="userId" value="${login.userId}">
+							<input type="hidden" id="page" name="page" value="${scri.page}"> 
+							<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
+							<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
+							<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
+						</form>
+						<form name="scrapForm" role="form" method="post" >
+							<input id="bno" name="bno" type="hidden" value="${read.bno}"/>
+							<input type="hidden" id="scrapTitle" name="scrapTitle" value="${read.title}"/>
+							<input type="hidden" id="scrapAd" name="scrapAd" value=""/>
 							<input type="hidden" id="userId" name="userId" value="${login.userId}">
 							<input type="hidden" id="page" name="page" value="${scri.page}"> 
 							<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
@@ -116,19 +140,24 @@ function pushOutClick(){
 						</div>
 						총 추천수: ${push} 
 						<div class="form-group align-items-center justify-content-between mt-4 mb-0">
-							<c:if test="${login.userId == read.writer}">
-							<button class="btn btn-primary" type="submit" onclick="updateClick()">수정</button>
-							<button class="btn btn-primary" type="submit" onclick="deleteClick()">삭제</button>
-							</c:if>
-							<button class="btn btn-primary float-right" type="submit" onclick="pageListClick()">목록으로</button>
-							<c:if test="${not empty login}">
-								<c:if test="${pushCheck == 0}">
-								<button class="btn btn-primary float-right" type="submit" onclick="pushClick()">추천하기</button>
+							<div class="float-left">
+								<c:if test="${login.userId == read.writer}">
+								<button class="btn btn-primary" type="submit" onclick="updateClick()">수정</button>
+								<button class="btn btn-primary" type="submit" onclick="deleteClick()">삭제</button>
 								</c:if>
-								<c:if test="${pushCheck == 1}">
-								<button class="btn btn-primary float-right" type="submit" onclick="pushOutClick()">추천회수</button>
+							</div>
+							<div class="float-right">
+								<button class="btn btn-primary " type="submit" onclick="pageListClick()">목록으로</button>
+								<c:if test="${not empty login}">
+									<button class="btn btn-primary " type="submit" onclick="scrapIn()">스크랩</button>
+									<c:if test="${pushCheck == 0}">
+									<button class="btn btn-primary " type="submit" onclick="pushClick()">추천하기</button>
+									</c:if>
+									<c:if test="${pushCheck == 1}">
+									<button class="btn btn-primary " type="submit" onclick="pushOutClick()">추천회수</button>
+									</c:if>
 								</c:if>
-							</c:if>
+							</div>
 						</div>
 					</div>
 					<!-- 댓글 기능 전체 -->
@@ -160,7 +189,6 @@ function pushOutClick(){
 								<c:forEach items="${replyList}" var="replyList">
 									<li class="py-4">
 										<div>
-											댓글번호: ${replyList.rno}
 											작성자 : ${replyList.writer}&nbsp;&nbsp;
 											작성 날짜 : <fmt:formatDate value="${replyList.regdate}" pattern="yyyy-MM-dd" />
 										</div>

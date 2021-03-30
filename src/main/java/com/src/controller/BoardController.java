@@ -62,7 +62,6 @@ public class BoardController {
 	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception{
 		logger.info("게시글 목록");
 		model.addAttribute("list",service.list(scri));
-		
 		//페이징
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(scri);

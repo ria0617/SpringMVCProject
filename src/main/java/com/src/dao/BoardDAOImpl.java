@@ -45,12 +45,12 @@ public class BoardDAOImpl implements BoardDAO {
 	// 게시물 수정
 	@Override
 	public void update(BoardVO boardVO) throws Exception {
-		sqlSession.update("boardMapper.update", boardVO);
+		sqlSession.update(namespace + ".update", boardVO);
 	}
 
 	// 게시물 삭제
 	@Override
 	public void delete(int bno) throws Exception {
-		sqlSession.delete("boardMapper.delete", bno);
+		sqlSession.delete(namespace + ".delete", bno);
 	}
 }
