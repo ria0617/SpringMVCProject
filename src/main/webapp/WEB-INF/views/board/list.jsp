@@ -51,6 +51,7 @@
 									<th>글번호</th>
 									<th>제목</th>
 									<th>작성자</th>
+									<th>조회수</th>
 									<th>등록일</th>
 								</tr>
 							</thead>
@@ -68,6 +69,7 @@
 										</a>
 									</td>
 									<td><c:out value="${list.writer}" /></td>
+									<td><c:out value="${list.hit}" /></td>
 									<td><fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd"/></td>
 								</tr>
 								</c:forEach>

@@ -53,4 +53,10 @@ public class BoardDAOImpl implements BoardDAO {
 	public void delete(int bno) throws Exception {
 		sqlSession.delete(namespace + ".delete", bno);
 	}
+	
+	// 게시판 조회수
+	@Override
+	public void boardHit(int bno) throws Exception {
+		sqlSession.update(namespace + ".boardHit", bno);
+	}
 }

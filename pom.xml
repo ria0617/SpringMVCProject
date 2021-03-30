@@ -225,6 +225,15 @@
 		</dependency>
 		<!-- 이메일 인증 끝 -->
 		
+		<!-- 트랜젝션 START -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>3.1.1.RELEASE</version>
+		</dependency>
+		<!-- 트랜젝션 END -->
+		
 	</dependencies>
 
 	<build>
