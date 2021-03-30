@@ -9,14 +9,14 @@
 // 수정 
 function updateClick(){
 	var formObj = $("form[name='mreadForm']");
-	formObj.attr("action", "/board/updateView");
+	formObj.attr("action", "/movie/M_updateView");
 	formObj.attr("method", "get");
 	formObj.submit();				
 }
 //삭제 
 function deleteClick(){
 	var formObj = $("form[name='mreadForm']");
-	formObj.attr("action", "/board/delete");
+	formObj.attr("action", "/movie/M_delete");
 	formObj.attr("method", "post");
 	formObj.submit();
 }
@@ -44,24 +44,24 @@ function pageListClick(){
 				<div class="card shadow-lg border-0 rounded-lg">
 					<div class="card-body">
 						<form name="mreadForm" role="form" method="post" >
-							<input id="bno" name="bno" type="hidden" value="${mmread.movie_id}"/>
+							<input id="movie_id" name="movie_id" type="hidden" value="${mread.movie_id}"/>
 							<input type="hidden" id="page" name="page" value="${scri.page}"> 
 							<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
 							<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
 							<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
 						</form>
 						<div class="form-group">
-							<label class="small mb-1" for="bno">글 번호</label>
+							<label class="small mb-1" for="movie_id">글 번호</label>
 							${mread.movie_id}&nbsp;&nbsp;|&nbsp;&nbsp;
-							<label class="small mb-1" for="writer">작성자</label>
-							<input class="form-control py-4" id="writer" name="writer" type="hidden" value="${mread.m_writer}"/>
+							<label class="small mb-1" for="m_writer">작성자</label>
+							<input class="form-control py-4" id="m_writer" name="m_writer" type="hidden" value="${mread.m_writer}"/>
 							${mread.m_writer}&nbsp;&nbsp;|&nbsp;&nbsp;
-							<label class="small mb-1"  for="regdate">작성일</label>
+							<label class="small mb-1"  for="m_date">작성일</label>
 							<fmt:formatDate value="${mread.m_date}" pattern="yyyy-MM-dd"/>
 						</div>
 						<div class="form-group">
 							<label class="small mb-1" for="title">제목: </label>
-							<input class="form-control py-4" id="title" name="title" type="hidden" value="${mread.m_title}"/>
+							<input class="form-control py-4" id="m_title" name="m_title" type="hidden" value="${mread.m_title}"/>
 							${mread.m_title}
 						</div>
 						<div class="form-group">

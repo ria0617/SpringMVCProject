@@ -30,21 +30,21 @@
 									<div class="form-group">
 										<label class="small mb-1" >작성자</label>
 										${login.userId}
-										<input class="form-control py-4" id="Mwriter" name="Mwriter" type="hidden" value="${login.userId}" />
+										<input class="form-control py-4" id="m_writer" name="m_writer" type="hidden" value="${login.userId}" />
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="small mb-1" >제목</label>
-								<input class="form-control py-4" id="Mtitle" name="Mtitle" type="text" placeholder="제목을 입력해주세요" />
+								<input class="form-control py-4" id="m_title" name="m_title" type="text" placeholder="제목을 입력해주세요" />
 							</div>
 							<div class="form-group">
 								<label class="small mb-1" >내용</label>
-								<textarea  class="form-control py-4"  id="Mcontent" name="Mcontent" ></textarea>
+								<textarea  class="form-control py-4"  id="m_content" name="m_content" ></textarea>
 							</div>
 							<div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
 									<button class="btn btn-primary"  type="submit">글 작성하기</button>
-									<a class="small"  href="/board/list">목록으로</a>
+									<a class="small"  href="/movie/M_list">목록으로</a>
 							</div>
 						</form>
 					</div>

@@ -46,22 +46,22 @@
 	<select id="movieRead" parameterType="int" resultType="com.src.domain.MBoardVO">
 		SELECT MOVIE_ID, M_TITLE, M_CONTENT, M_WRITER, M_DATE
 		FROM MOVIE_BOARD
-		WHERE MOVIE_ID = #{movieId}
+		WHERE MOVIE_ID = #{movie_id}
 	</select>
 	
 	<!-- 글 수정 -->
 	<update id="movieUpdate" parameterType="com.src.domain.MBoardVO">
 		UPDATE MOVIE_BOARD
 		SET 
-			TITLE = #{m_title},
-			CONTENT = #{m_content}
-		 WHERE MOVIE_ID = #{movieId} 
+			M_TITLE = #{m_title},
+			M_CONTENT = #{m_content}
+		 WHERE MOVIE_ID = #{movie_id} 
 	</update>
 	
 	<!-- 글삭제 -->
 	<delete id="movieDelete" parameterType="int">
 		DELETE FROM MOVIE_BOARD
-		WHERE MOVIE_ID = #{movieId}
+		WHERE MOVIE_ID = #{movie_id}
 	</delete>
 	
 	<!-- 게시판 조회수 -->
@@ -69,7 +69,7 @@
 		UPDATE MOVIE_BOARD 
 		SET
 		M_HIT = M_HIT+1
-		WHERE MOVIE_ID = #{movieId}
+		WHERE MOVIE_ID = #{movie_id}
 	</update>
 	
 </mapper>
