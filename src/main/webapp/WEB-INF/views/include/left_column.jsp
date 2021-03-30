@@ -5,7 +5,7 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">영화소개</div>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/movie/M_list">
                     <div class="sb-nav-link-icon"><i class="fas fa-film"></i></div>
                     영화소개
                 </a>

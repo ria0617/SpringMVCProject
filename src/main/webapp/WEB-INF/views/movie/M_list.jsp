@@ -17,11 +17,12 @@
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid">
-				<h1 class="mt-4">영화리뷰</h1>
+				<h1 class="mt-4">영화 소개</h1>
 				<ol class="breadcrumb mb-4">
-					<li class="breadcrumb-item"><a href="/board/list">영화리뷰</a></li>
-					<li class="breadcrumb-item active">영화리뷰</li>
+					<li class="breadcrumb-item"><a href="/movie/M_list">영화 소개</a></li>
+					<li class="breadcrumb-item active">영화 소개</li>
 				</ol>
+				
 				<div class="form-row">
 					<div class="col-md-6">
 						<div class="form-group">
@@ -32,7 +33,7 @@
 					<c:if test="${not empty login}">
 					<div class="col-md-6">
 						<div class="form-group float-right">
-							<a class="btn btn-primary"  href="/board/writeView">글쓰기</a>
+							<a class="btn btn-primary"  href="/movie/M_writeView">글쓰기</a>
 						</div>
 					</div>
 					</c:if>
@@ -45,7 +46,6 @@
 								<col width="*">
 								<col width="10%">
 								<col width="5%">
-								<col width="5%">
 								<col width="10%">
 							</colgroup>
 							<thead>
@@ -54,27 +54,25 @@
 									<th>제목</th>
 									<th>작성자</th>
 									<th>조회수</th>
-									<th>추천수</th>
 									<th>등록일</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${list}" var = "list">
+								<c:forEach items="${mlist}" var = "mlist">
 								<tr>
-									<td><c:out value="${list.bno}" /></td>
+									<td><c:out value="${mlist.movie_id}" /></td>
 									<td>
-										<a href="/board/readView?
-											bno=${list.bno}&
+										<a href="/movie/M_readView?
+											movie_id=${mlist.movie_id}&
 											page=${scri.page}&
 											perPageNum=${scri.perPageNum}&
 											searchType=${scri.searchType}&
-											keyword=${scri.keyword}"><c:out value="${list.title}" />
+											keyword=${scri.keyword}"><c:out value="${mlist.m_title}" />
 										</a>
 									</td>
-									<td><c:out value="${list.writer}" /></td>
-									<td><c:out value="${list.hit}" /></td>
-									<td></td>
-									<td><fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd"/></td>
+									<td><c:out value="${mlist.m_writer}" /></td>
+									<td><c:out value="${mlist.m_hit}" /></td>
+									<td><fmt:formatDate value="${mlist.m_date}" pattern="yyyy-MM-dd"/></td>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -104,7 +102,7 @@
 									<script>
 									$(function(){
 										$('#searchBtn').click(function() {
-											self.location = "list" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
+											self.location = "M_list" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
 										});
 									}); 
 									</script>
