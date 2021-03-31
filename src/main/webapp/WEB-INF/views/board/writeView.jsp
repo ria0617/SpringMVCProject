@@ -24,7 +24,7 @@
 				
 				<div class="card shadow-lg border-0 rounded-lg">
 					<div class="card-body">
-						<form role="form" method="post" action="/board/write">
+						<form id="WriteForm" role="form" method="post" action="/board/write">
 							<div class="form-row">
 								<div class="col-md-6">
 									<div class="form-group">
@@ -40,10 +40,10 @@
 							</div>
 							<div class="form-group">
 								<label class="small mb-1" >내용</label>
-								<textarea  class="form-control py-4"  id="content" name="content" ></textarea>
+								<textarea class="form-control py-4"  name="content" id="content" rows="10" cols="100"></textarea>
 							</div>
 							<div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-									<button class="btn btn-primary"  type="submit">글 작성하기</button>
+									<button class="btn btn-primary"  id="savebutton" type="submit">글 작성하기</button>
 									<a class="small"  href="/board/list">목록으로</a>
 							</div>
 						</form>
@@ -61,6 +61,7 @@
 	</div>
 </div>
 
+<%@ include file="../js/editor_js.jsp" %>
 <%@ include file="../include/plugin_js.jsp" %>
 
 </body>

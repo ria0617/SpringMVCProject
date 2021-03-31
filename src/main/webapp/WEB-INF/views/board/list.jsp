@@ -73,7 +73,7 @@
 									</td>
 									<td><c:out value="${list.writer}" /></td>
 									<td><c:out value="${list.hit}" /></td>
-									<td></td>
+									<td><c:out value="${list.totalpush}" /></td>
 									<td><fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd"/></td>
 								</tr>
 								</c:forEach>

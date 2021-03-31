@@ -200,7 +200,7 @@ public class BoardController {
 	
 	//추천하기
 	@RequestMapping(value = "/pushIn", method = RequestMethod.POST)
-	public String pushIn(ReplyVO replyVO, PushVO pushVO, SearchCriteria scri, RedirectAttributes rttr, Model model) throws Exception{
+	public String pushIn(BoardVO boardVO, ReplyVO replyVO, PushVO pushVO, SearchCriteria scri, RedirectAttributes rttr, Model model) throws Exception{
 		logger.info("추천하기");
 		
 		//페이지 값 가져오기
@@ -213,12 +213,20 @@ public class BoardController {
 
 		pushService.pushIn(pushVO);
 		
+		//총 추천수
+		int Ptotal = pushService.totalPush(pushVO);
+		
+		boardVO.setBno(pushVO.getBno());
+		boardVO.setTotalpush(Ptotal);
+		service.boardTotalPust(boardVO);
+		
+		
 		return "redirect:/board/readView";
 	}
 	
 	//추천회수
 	@RequestMapping(value = "/pushOut", method = RequestMethod.POST)
-	public String pushOut(ReplyVO replyVO, PushVO pushVO, SearchCriteria scri, RedirectAttributes rttr, Model model) throws Exception{
+	public String pushOut(BoardVO boardVO, ReplyVO replyVO, PushVO pushVO, SearchCriteria scri, RedirectAttributes rttr, Model model) throws Exception{
 		logger.info("추천하기");
 		
 		//페이지 값 가져오기
@@ -230,6 +238,13 @@ public class BoardController {
 		rttr.addAttribute("keyword", scri.getKeyword());
 
 		pushService.pushOut(pushVO);
+		
+		//총 추천수
+		int Ptotal = pushService.totalPush(pushVO);
+	
+		boardVO.setBno(pushVO.getBno());
+		boardVO.setTotalpush(Ptotal);
+		service.boardTotalPust(boardVO);
 		
 		return "redirect:/board/readView";
 	}

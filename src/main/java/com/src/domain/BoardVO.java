@@ -9,7 +9,14 @@ public class BoardVO {
 	private String writer;
 	private Date regdate;
 	private int hit;
+	private int totalpush;
 	
+	public int getTotalpush() {
+		return totalpush;
+	}
+	public void setTotalpush(int totalpush) {
+		this.totalpush = totalpush;
+	}
 	public int getHit() {
 		return hit;
 	}
@@ -49,7 +56,7 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regdate="
-				+ regdate + ", hit=" + hit + "]";
+				+ regdate + ", hit=" + hit + ", totalpush=" + totalpush + "]";
 	}
 
 	

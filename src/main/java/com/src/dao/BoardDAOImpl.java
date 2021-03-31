@@ -59,4 +59,11 @@ public class BoardDAOImpl implements BoardDAO {
 	public void boardHit(int bno) throws Exception {
 		sqlSession.update(namespace + ".boardHit", bno);
 	}
+	
+	//게시판 총 추천수
+	@Override
+	public void boardTotalPust(BoardVO boardVO) throws Exception {
+		sqlSession.update(namespace + ".boardTotalPust", boardVO);
+		
+	}
 }

@@ -24,5 +24,8 @@ public interface BoardService {
 	
 	// 게시물 삭제
 	public void delete(int bno) throws Exception;
+	
+	//게시물 총 조회수
+	public void boardTotalPust(BoardVO boardVO) throws Exception;
 
 }

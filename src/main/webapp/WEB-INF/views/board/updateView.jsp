@@ -23,7 +23,7 @@
 				
 				<div class="card shadow-lg border-0 rounded-lg">
 					<div class="card-body">
-						<form role="readForm" action="/board/update" role="form" method="post" >
+						<form id="WriteForm"  role="readForm" action="/board/update" method="post" >
 							<input class="form-control py-4" id="bno" name="bno" type="hidden" value="${update.bno}"/>
 							<input type="hidden" id="page" name="page" value="${scri.page}"> 
 							<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
@@ -44,10 +44,10 @@
 							</div>
 							<div class="form-group">
 								<label class="small mb-1" for="content" >내용</label>
-								<textarea class="hidden form-control py-4"  id="content" name="content" ><c:out value="${update.content}" /></textarea>
+								<textarea class="form-control py-4"  name="content" id="content" rows="10" cols="100"><c:out value="${update.content}" /></textarea>
 							</div>
 							<div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-									<button class="btn btn-primary" type="submit" class="update_btn">수정</button>
+									<button class="btn btn-primary" id="savebutton"  type="submit" class="update_btn">수정</button>
 									<a class="small"  href="/board/list">목록으로</a>
 							</div>
 						</form>
@@ -64,7 +64,7 @@
 		<%@ include file="../include/main_footer.jsp" %>
 	</div>
 </div>
-
+<%@ include file="../js/editor_js.jsp" %>
 <%@ include file="../include/plugin_js.jsp" %>
 
 </body>

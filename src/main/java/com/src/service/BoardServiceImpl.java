@@ -56,4 +56,10 @@ public class BoardServiceImpl implements BoardService {
 		dao.delete(bno);
 	}
 	
+	//게시판 총 추천 수 
+	@Override
+	public void boardTotalPust(BoardVO boardVO) throws Exception {
+		dao.boardTotalPust(boardVO);
+	}
+		
 }
