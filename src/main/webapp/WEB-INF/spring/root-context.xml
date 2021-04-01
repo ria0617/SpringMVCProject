@@ -43,5 +43,6 @@
 	<context:component-scan base-package="com.src.service"></context:component-scan>
 	<context:component-scan base-package="com.src.dao"></context:component-scan>
 	<context:component-scan base-package="com.src.domain"></context:component-scan>
+	<context:component-scan base-package="com.src.utils"></context:component-scan>
 	
 </beans>

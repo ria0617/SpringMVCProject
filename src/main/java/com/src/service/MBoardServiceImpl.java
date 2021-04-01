@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.src.dao.MBoardDAO;
 import com.src.domain.BoardVO;
+import com.src.domain.CategoryVO;
 import com.src.domain.MBoardVO;
 import com.src.domain.SearchCriteria;
 
@@ -55,6 +56,18 @@ public class MBoardServiceImpl implements MBoardService {
 	@Override
 	public void movieDelete(int movie_id) throws Exception {
 		dao.movieDelete(movie_id);
+	}
+	
+	//카테고리 조회
+	@Override
+	public List<CategoryVO> categoryList() throws Exception {
+		return dao.categoryList();
+	}
+
+	//특정 카테고리조회
+	@Override
+	public CategoryVO searchCategoty(CategoryVO categoryVO) throws Exception {
+		return dao.searchCategoty(categoryVO);
 	}
 
 }

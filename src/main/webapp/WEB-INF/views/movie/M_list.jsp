@@ -17,83 +17,57 @@
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid">
-				<h1 class="mt-4">영화 소개</h1>
-				<ol class="breadcrumb mb-4">
-					<li class="breadcrumb-item"><a href="/movie/M_list">영화 소개</a></li>
-					<li class="breadcrumb-item active">영화 소개</li>
+				<h1 class="mt-5">영화소개</h1>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						페이지: ${pageMaker.cri.page} / ${pageMaker.endPage}&nbsp;&nbsp;
+						소개된 영화: ${pageMaker.totalCount}
+					</li>
 				</ol>
-				
-				<div class="form-row">
-					<div class="col-md-6">
-						<div class="form-group">
-							페이지: ${pageMaker.cri.page} / ${pageMaker.endPage}&nbsp;&nbsp;
-							총 게시물: ${pageMaker.totalCount}
+				<c:if test="${not empty login}">
+					<div class="form-row">
+						<div class="col-md-12">
+							<div class="form-group float-right">
+								<a class="btn btn-info"  href="/movie/M_writeView">글쓰기</a>
+							</div>
 						</div>
 					</div>
-					<c:if test="${not empty login}">
-					<div class="col-md-6">
-						<div class="form-group float-right">
-							<a class="btn btn-primary"  href="/movie/M_writeView">글쓰기</a>
+				</c:if>
+				<div class="mb-5">
+					<div class="row text-center py-4">
+					<c:forEach items="${mlist}" var = "mlist">
+						<div class="col-lg-2 col-md-6 mb-4">
+							<a href="/movie/M_readView?
+										movie_id=${mlist.movie_id}&
+										category_id=${mlist.category_id}&
+										page=${scri.page}&
+										perPageNum=${scri.perPageNum}&
+										searchType=${scri.searchType}&
+										keyword=${scri.keyword}">
+								<div class="card h-100">
+									<img class="card-img-top"  src="${mlist.post_thumbimg}"/>
+									<div class="card-footer">${mlist.m_title}</div>
+								</div>
+							</a>
 						</div>
-					</div>
-					</c:if>
-				</div>
-				<div class="mb-4">
-					<div class="table-responsive">
-						<table class="table table-bordered" id="" width="100%" cellspacing="0">
-							<colgroup>
-								<col width="5%">
-								<col width="*">
-								<col width="10%">
-								<col width="5%">
-								<col width="10%">
-							</colgroup>
-							<thead>
-								<tr>
-									<th>글번호</th>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>조회수</th>
-									<th>등록일</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${mlist}" var = "mlist">
-								<tr>
-									<td><c:out value="${mlist.movie_id}" /></td>
-									<td>
-										<a href="/movie/M_readView?
-											movie_id=${mlist.movie_id}&
-											page=${scri.page}&
-											perPageNum=${scri.perPageNum}&
-											searchType=${scri.searchType}&
-											keyword=${scri.keyword}"><c:out value="${mlist.m_title}" />
-										</a>
-									</td>
-									<td><c:out value="${mlist.m_writer}" /></td>
-									<td><c:out value="${mlist.m_hit}" /></td>
-									<td><fmt:formatDate value="${mlist.m_date}" pattern="yyyy-MM-dd"/></td>
-								</tr>
-								</c:forEach>
-							</tbody>
-						</table>
+					</c:forEach>
 					</div>
 					<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
 						<!-- 검색 시작 -->
 						<div class="row">
 							<div class="col-sm-12 col-md-6">
 								<div class="search">
-									<select class="custom-select float-left mr-1" name="searchType" style="display:inline-block; width:30%;">
+									<select class="custom-select float-left mr-1" name="searchType" style="display:inline-block; width:20%;">
 										<option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>검색</option>
 										<option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
 										<option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
 										<option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
 										<option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
 									</select>
-									<div class="input-group float-left" style="width:50%;">
-											<input class="form-control form-control-sm"  type="text" name="keyword" id="keywordInput" value="${scri.keyword}" placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" />
+									<div class="input-group float-left" style="width:30%;">
+											<input class="form-control"  type="text" name="keyword" id="keywordInput" value="${scri.keyword}" placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" />
 											<div class="input-group-append">
-												<button class="btn btn-primary" id="searchBtn"  type="button">
+												<button class="btn btn-info" id="searchBtn"  type="button">
 													<i class="fas fa-search"></i>
 												</button>
 											</div>

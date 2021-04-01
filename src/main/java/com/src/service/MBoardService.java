@@ -3,6 +3,7 @@ package com.src.service;
 import java.util.List;
 
 import com.src.domain.BoardVO;
+import com.src.domain.CategoryVO;
 import com.src.domain.MBoardVO;
 import com.src.domain.SearchCriteria;
 
@@ -25,5 +26,11 @@ public interface MBoardService {
 	
 	// 게시물 삭제
 	public void movieDelete(int movie_id) throws Exception;
+	
+	// 카테고리 목록 조회
+	public List<CategoryVO> categoryList() throws Exception;
+	
+	//특정 카테고리 이름 조회
+	public CategoryVO searchCategoty(CategoryVO categoryVO) throws Exception;
 
 }

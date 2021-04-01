@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.src.domain.BoardVO;
+import com.src.domain.CategoryVO;
 import com.src.domain.MBoardVO;
 import com.src.domain.SearchCriteria;
 
@@ -59,6 +60,19 @@ public class MBoardDAOImpl implements MBoardDAO {
 	@Override
 	public void movieBoardHit(int movie_id) throws Exception {
 		sqlSession.update(namespace + ".movieBoardHit", movie_id);
+	}
+	
+	//카테고리 조회
+	@Override
+	public List<CategoryVO> categoryList() throws Exception {
+		return sqlSession.selectList(namespace + ".categoryList");
+	}
+	
+	//특정 카테고리 조회
+	@Override
+	public CategoryVO searchCategoty(CategoryVO categoryVO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + ".searchCategoty", categoryVO);
 	}
 
 }

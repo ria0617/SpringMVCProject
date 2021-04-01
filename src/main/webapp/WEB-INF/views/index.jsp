@@ -6,7 +6,7 @@
 
 <%@ include file="include/head.jsp" %>
 
-<body class="sb-nav-fixed">
+<body class="sb-nav-fixed sb-sidenav-toggled">
 
 <%@ include file="include/main_header.jsp" %>
 

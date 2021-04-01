@@ -17,7 +17,7 @@ $(document).ready(function(){
 	});
 })
 </script>
-<body class="bg-primary">
+<body class="bg-info">
 	<div id="layoutAuthentication">
 		<div id="layoutAuthentication_content">
 			<main>

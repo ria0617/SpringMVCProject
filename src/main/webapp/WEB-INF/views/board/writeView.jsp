@@ -5,7 +5,23 @@
 <html>
 
 <%@ include file="../include/head.jsp" %>
-
+<script type="text/javascript">
+(document).ready(function(){
+	$("#savebutton").on("click", function(){
+		//공백문자 방지
+		if($("#content").val()==""){
+			alert("내용을 입력해주세요.");
+			$("#content").focus();
+			return false;
+		}
+		if($("#title").val()==""){
+			alert("제목을 입력해주세요"");
+			$("#title").focus();
+			return false;
+		}
+	});
+})
+</script>
 <body class="sb-nav-fixed">
 
 <%@ include file="../include/main_header.jsp" %>
@@ -16,7 +32,7 @@
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid">
-				<h1 class="mt-4">영화리뷰 글쓰기</h1>
+				<h1 class="mt-5">영화리뷰 글쓰기</h1>
 				<ol class="breadcrumb mb-4">
 					<li class="breadcrumb-item"><a href="/board/list">영화리뷰</a></li>
 					<li class="breadcrumb-item active">영화리뷰 글쓰기</li>
@@ -35,16 +51,14 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="small mb-1" >제목</label>
 								<input class="form-control py-4" id="title" name="title" type="text" placeholder="제목을 입력해주세요" />
 							</div>
 							<div class="form-group">
-								<label class="small mb-1" >내용</label>
 								<textarea class="form-control py-4"  name="content" id="content" rows="10" cols="100"></textarea>
 							</div>
 							<div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
 									<button class="btn btn-primary"  id="savebutton" type="submit">글 작성하기</button>
-									<a class="small"  href="/board/list">목록으로</a>
+									<a class="btn btn-dark "   href="/board/list">목록으로</a>
 							</div>
 						</form>
 					</div>

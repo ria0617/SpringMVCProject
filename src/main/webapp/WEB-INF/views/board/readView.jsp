@@ -89,7 +89,7 @@ alert ("스크랩되었습니다");
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid">
-				<h1 class="mt-4">영화리뷰 읽기</h1>
+				<h1 class="mt-5">영화리뷰 읽기</h1>
 				<ol class="breadcrumb mb-4">
 					<li class="breadcrumb-item"><a href="/board/list">영화리뷰</a></li>
 					<li class="breadcrumb-item active">영화리뷰 읽기</li>
@@ -128,42 +128,44 @@ alert ("스크랩되었습니다");
 							<input class="form-control py-4" id="writer" name="writer" type="hidden" value="${read.writer}"/>
 							${read.writer}&nbsp;&nbsp;|&nbsp;&nbsp;
 							<label class="small mb-1"  for="regdate">작성일</label>
-							<fmt:formatDate value="${read.regdate}" pattern="yyyy-MM-dd"/>
+							<fmt:formatDate value="${read.regdate}" pattern="yyyy-MM-dd"/>&nbsp;&nbsp;|&nbsp;&nbsp;
+							<label class="small mb-1"  for="totalpush">총 추천수</label>
+							${push} 
 						</div>
-						<div class="form-group">
-							<label class="small mb-1" for="title">제목: </label>
+						<div class="form-group font-weight-bold">
+							<label class="middle mb-1 " for="title">제목: </label>
 							<input class="form-control py-4" id="title" name="title" type="hidden" value="${read.title}"/>
 							${read.title}
 						</div>
-						<div class="form-group">
+						<div class="form-group py-4">
 							${read.content}
 						</div>
-						총 추천수: ${push} 
+						<c:if test="${not empty login}">
+						<div class="dropdown-divider"></div>
 						<div class="form-group align-items-center justify-content-between mt-4 mb-0">
 							<div class="float-left">
 								<c:if test="${login.userId == read.writer}">
-								<button class="btn btn-primary" type="submit" onclick="updateClick()">수정</button>
-								<button class="btn btn-primary" type="submit" onclick="deleteClick()">삭제</button>
+								<button class="btn btn-success" type="submit" onclick="updateClick()">수정</button>
+								<button class="btn btn-danger" type="submit" onclick="deleteClick()">삭제</button>
 								</c:if>
 							</div>
 							<div class="float-right">
-								<button class="btn btn-primary " type="submit" onclick="pageListClick()">목록으로</button>
-								<c:if test="${not empty login}">
 									<button class="btn btn-primary " type="submit" onclick="scrapIn()">스크랩</button>
 									<c:if test="${pushCheck == 0}">
-									<button class="btn btn-primary " type="submit" onclick="pushClick()">추천하기</button>
+									<button class="btn btn-info " type="submit" onclick="pushClick()">추천하기</button>
 									</c:if>
 									<c:if test="${pushCheck == 1}">
 									<button class="btn btn-primary " type="submit" onclick="pushOutClick()">추천회수</button>
 									</c:if>
-								</c:if>
+								<button class="btn btn-dark " type="submit" onclick="pageListClick()">목록으로</button>
 							</div>
 						</div>
+						</c:if>
 					</div>
 					<!-- 댓글 기능 전체 -->
 					<div class="card-footer text-left">
-						<h4 class="mb-2">댓글 목록</h4>
 						<c:if test="${not empty login}">
+						<h4 class="mb-2">댓글 목록</h4>
 						<!-- 댓글 쓰기 -->
 						<form name="replyForm" method="post">
 							<input type="hidden" id="bno" name="bno" value="${read.bno}" />
@@ -177,7 +179,7 @@ alert ("스크랩되었습니다");
 									<textarea  class="form-control py-3"  id="content" name="content" ></textarea>
 								</div>
 								<div class="col-md-1 align-items-center justify-content-between">
-									<button type="button" class="btn btn-primary btn-block py-4" onclick="replyWriteBtn()">댓글 작성</button>
+									<button type="button" class="btn btn-secondary btn-block py-4" onclick="replyWriteBtn()">댓글 작성</button>
 								</div>
 							</div>
 						</form>
@@ -217,9 +219,9 @@ alert ("스크랩되었습니다");
 												</div>
 											</form>
 										<div class="form-group align-items-center justify-content-between mt-4 mb-0">
-											<button type="button" class="btn btn-primary"  id="replyUpdateBtn${replyList.rno}"  onclick="replyUpdateBtn${replyList.rno}(${replyList.rno})" data-rno="${replyList.rno}">수정</button>
-											<button type="button" class="btn btn-primary hide"  id="replyUpdateClick${replyList.rno}"  onclick="replyUpdateClick(${replyList.rno})" data-rno="${replyList.rno}">저장</button>
-											<button type="button" class="btn btn-primary"  onclick="replyDeleteClick(${replyList.rno})" data-rno="${replyList.rno}">삭제</button>
+											<button type="button" class="btn btn-success"  id="replyUpdateBtn${replyList.rno}"  onclick="replyUpdateBtn${replyList.rno}(${replyList.rno})" data-rno="${replyList.rno}">수정</button>
+											<button type="button" class="btn btn-success hide"  id="replyUpdateClick${replyList.rno}"  onclick="replyUpdateClick(${replyList.rno})" data-rno="${replyList.rno}">저장</button>
+											<button type="button" class="btn btn-danger"  onclick="replyDeleteClick(${replyList.rno})" data-rno="${replyList.rno}">삭제</button>
 										</div>
 										</c:if>
 										<!-- 댓글 수정 삭제 끝 -->

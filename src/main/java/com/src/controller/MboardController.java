@@ -1,7 +1,8 @@
 package com.src.controller;
 
-import java.util.List;
+import java.io.File;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -12,17 +13,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.src.domain.BoardVO;
+import com.src.domain.CategoryVO;
 import com.src.domain.MBoardVO;
 import com.src.domain.PageMaker;
-import com.src.domain.PushVO;
-import com.src.domain.ReplyVO;
 import com.src.domain.SearchCriteria;
 import com.src.domain.UserVO;
 import com.src.service.MBoardService;
 import com.src.service.UserService;
+import com.src.utils.UploadFileUtils;
+
 
 @Controller
 @RequestMapping("/movie/*")
@@ -35,16 +37,32 @@ public class MboardController {
 	@Inject
 	MBoardService Mservice;
 	
+	@Resource(name="uploadPath")
+	private String uploadPath;
+	
 	// 영화 소개 글 작성 화면
 	@RequestMapping(value = "/M_writeView", method = RequestMethod.GET)
-	public void MwriteView() throws Exception{
+	public void MwriteView(CategoryVO categoryVO, Model model) throws Exception{
+		model.addAttribute("category",Mservice.categoryList());
 		logger.info("영화 소개 글 작성 화면");
 	}
 	
 	// 영화 소개 글 작성
 	@RequestMapping(value = "/M_write", method = RequestMethod.POST)
-	public String Mwrite(MBoardVO mboardVO) throws Exception{
-		
+	public String Mwrite(CategoryVO categoryVO, MBoardVO mboardVO, MultipartFile file) throws Exception{
+		//이미지 첨부파일
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+
+		if(file != null) {
+		 fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		} else {
+		 fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
+		}
+
+		mboardVO.setPost_img(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+		mboardVO.setPost_thumbimg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		logger.info("영화 소개 글 작성");
 		Mservice.movieWrite(mboardVO);
 		
@@ -68,9 +86,11 @@ public class MboardController {
 	
 	// 영화소개 글 보기
 	@RequestMapping(value = "/M_readView", method = RequestMethod.GET)
-	public String Mread(UserVO userVO, MBoardVO mboardVO, @ModelAttribute("scri") SearchCriteria scri, Model model, HttpSession httpsession, RedirectAttributes rttr) throws Exception{
-		
+	public String Mread(CategoryVO categoryVO, MBoardVO mboardVO, @ModelAttribute("scri") SearchCriteria scri, Model model, HttpSession httpsession, RedirectAttributes rttr) throws Exception{
 		logger.info("영화 소개글 읽기");
+		categoryVO.setCategory_id(mboardVO.getCategory_id());
+		System.out.println(categoryVO);
+		model.addAttribute("categoty", Mservice.searchCategoty(categoryVO));
 		model.addAttribute("mread", Mservice.movieRead(mboardVO.getMovie_id()));
 		model.addAttribute("mlist",Mservice.movieListPage(scri));
 

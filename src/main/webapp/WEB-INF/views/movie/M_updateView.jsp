@@ -15,7 +15,7 @@
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid">
-				<h1 class="mt-4">영화소개 읽기</h1>
+				<h1 class="mt-5">영화소개 읽기</h1>
 				<ol class="breadcrumb mb-4">
 					<li class="breadcrumb-item"><a href="/movie/M_list">영화소개</a></li>
 					<li class="breadcrumb-item active">영화소개 읽기</li>
@@ -31,24 +31,22 @@
 							<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}"> 
 							<div class="form-group">
 								<label class="small mb-1" for="movie_id">글 번호</label>
-								${mread.movie_id}&nbsp;&nbsp;|&nbsp;&nbsp;
+								${mupdate.movie_id}&nbsp;&nbsp;|&nbsp;&nbsp;
 								<label class="small mb-1" for="m_writer">작성자</label>
 								<input class="form-control py-4" id="m_writer" name="m_writer" type="hidden" value="${mupdate.m_writer}"/>
-								${mread.m_writer}&nbsp;&nbsp;|&nbsp;&nbsp;
+								${mupdate.m_writer}&nbsp;&nbsp;|&nbsp;&nbsp;
 								<label class="small mb-1"  for="m_date">작성일</label>
 								<fmt:formatDate value="${mupdate.m_date}" pattern="yyyy-MM-dd"/>
 							</div>
 							<div class="form-group">
-								<label class="small mb-1" for="title">제목: </label>
 								<input class="form-control py-4" id="m_title" name="m_title" type="text" value="${mupdate.m_title}"/>
 							</div>
 							<div class="form-group">
-								<label class="small mb-1" for="content" >내용</label>
 								<textarea class="hidden form-control py-4"  id="m_content" name="m_content" ><c:out value="${mupdate.m_content}" /></textarea>
 							</div>
 							<div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-									<button class="btn btn-primary" type="submit" class="mupdate_btn">수정</button>
-									<a class="small"  href="/movie/M_list">목록으로</a>
+									<button class="btn btn-success" type="submit" class="mupdate_btn">수정</button>
+									<a class="btn btn-dark"  href="/movie/M_list">목록으로</a>
 							</div>
 						</form>
 					</div>

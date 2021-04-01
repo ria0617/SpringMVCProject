@@ -9,6 +9,28 @@ public class MBoardVO {
 	private String m_writer;
 	private Date m_date;
 	private int m_hit;
+	private String post_img;
+	private String post_thumbimg;
+	private int category_id;
+	
+	public int getCategory_id() {
+		return category_id;
+	}
+	public void setCategory_id(int category_id) {
+		this.category_id = category_id;
+	}
+	public String getPost_thumbimg() {
+		return post_thumbimg;
+	}
+	public void setPost_thumbimg(String post_thumbimg) {
+		this.post_thumbimg = post_thumbimg;
+	}
+	public String getPost_img() {
+		return post_img;
+	}
+	public void setPost_img(String post_img) {
+		this.post_img = post_img;
+	}
 	public int getMovie_id() {
 		return movie_id;
 	}
@@ -48,13 +70,7 @@ public class MBoardVO {
 	@Override
 	public String toString() {
 		return "MBoardVO [movie_id=" + movie_id + ", m_title=" + m_title + ", m_content=" + m_content + ", m_writer="
-				+ m_writer + ", m_date=" + m_date + ", m_hit=" + m_hit + "]";
+				+ m_writer + ", m_date=" + m_date + ", m_hit=" + m_hit + ", post_img=" + post_img + ", post_thumbimg="
+				+ post_thumbimg + ", category_id=" + category_id + "]";
 	}
-	
-	
-
-	
-	
-
-	
 }

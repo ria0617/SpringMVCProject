@@ -27,7 +27,10 @@ function pageListClick(){
 	+"&searchType=${scri.searchType}&keyword=${scri.keyword}";
 }
 </script>
-
+<style>
+.oriImg {width:500px; height:auto;}
+.thumbImg{}
+</style>
 <body class="sb-nav-fixed">
 <%@ include file="../include/main_header.jsp" %>
 <div id="layoutSidenav">
@@ -36,7 +39,7 @@ function pageListClick(){
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid">
-				<h1 class="mt-4">영화소개 읽기</h1>
+				<h1 class="mt-5">영화소개 읽기</h1>
 				<ol class="breadcrumb mb-4">
 					<li class="breadcrumb-item"><a href="/movie/M_list">영화소개</a></li>
 					<li class="breadcrumb-item active">영화소개 읽기</li>
@@ -50,32 +53,34 @@ function pageListClick(){
 							<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
 							<input type="hidden" id="keyword" name="keyword" value="${scri.keyword}">
 						</form>
-						<div class="form-group">
-							<label class="small mb-1" for="movie_id">글 번호</label>
-							${mread.movie_id}&nbsp;&nbsp;|&nbsp;&nbsp;
-							<label class="small mb-1" for="m_writer">작성자</label>
-							<input class="form-control py-4" id="m_writer" name="m_writer" type="hidden" value="${mread.m_writer}"/>
-							${mread.m_writer}&nbsp;&nbsp;|&nbsp;&nbsp;
-							<label class="small mb-1"  for="m_date">작성일</label>
-							<fmt:formatDate value="${mread.m_date}" pattern="yyyy-MM-dd"/>
+						<div class="form-row py-5">
+							<div class="col-md-3 text-align-center">
+								<img class="thumbImg"  src="${mread.post_thumbimg}"/>
+							</div>
+							<div class="col-md-9">
+								<div class="form-group font-weight-bold">
+									<h3>[${categoty.category_name}] ${mread.m_title}</h3>
+								</div>
+								<div class="form-row">
+									<div class="col-md-2 col-sm-12">기본정보: 미국, 106분&nbsp;&nbsp;</div>
+									<div class="col-md-2 col-sm-12">개봉일: 2016.02.17&nbsp;&nbsp;</div>
+									<div class="col-md-2 col-sm-12">등급: 청소년 관람불가&nbsp;&nbsp;</div>
+									<div class="col-md-2 col-sm-12">감독: 팀 밀러</div>
+								</div>
+								<div class="form-row pt-4">
+									<div class="col-md-9">${mread.m_content}</div>
+								</div>
+							</div>
 						</div>
 						<div class="form-group">
-							<label class="small mb-1" for="title">제목: </label>
-							<input class="form-control py-4" id="m_title" name="m_title" type="hidden" value="${mread.m_title}"/>
-							${mread.m_title}
-						</div>
-						<div class="form-group">
-							${mread.m_content}
-						</div>
-						<div class="form-group align-items-center justify-content-between mt-4 mb-0">
 							<div class="float-left">
 								<c:if test="${login.userId == mread.m_writer}">
-								<button class="btn btn-primary" type="submit" onclick="updateClick()">수정</button>
-								<button class="btn btn-primary" type="submit" onclick="deleteClick()">삭제</button>
+								<button class="btn btn-success" type="submit" onclick="updateClick()">수정</button>
+								<button class="btn btn-danger" type="submit" onclick="deleteClick()">삭제</button>
 								</c:if>
 							</div>
 							<div class="float-right">
-								<button class="btn btn-primary " type="submit" onclick="pageListClick()">목록으로</button>
+								<button class="btn btn-dark " type="submit" onclick="pageListClick()">목록으로</button>
 							</div>
 						</div>
 					</div>

@@ -4,7 +4,7 @@
 <html>
 
 <%@ include file="../include/head.jsp" %>
-<body class="bg-primary">
+<body class="bg-info">
 <div id="layoutAuthentication">
 	<div id="layoutAuthentication_content">
 	<main>
@@ -25,11 +25,12 @@
 									<label class="small mb-1" for="inputPassword">패스워드</label>
 									<input class="form-control py-4" id="pw" name="pw" type="password" placeholder="패스워드를 입력해주세요" />
 								</div>
-								<div
-									class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-									<a  class="small"  href="/member/findIdView">아이디찾기</a>
-									<a  class="small"  href="/member/findPwView">비밀번호 찾기</a>
-									<button type="submit" class="btn btn-primary" >로그인</button>
+								<div class="form-group mt-4 mb-0">
+									<div class="float-left">
+										<a  class="small"  href="/member/findIdView">아이디찾기</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+										<a  class="small"  href="/member/findPwView">비밀번호 찾기</a>
+									</div>
+									<button type="submit" class="btn btn-primary float-right" >로그인</button>
 								</div>
 							</form>
 						</div>

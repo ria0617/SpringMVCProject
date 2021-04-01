@@ -5,15 +5,15 @@
 
 	<!-- 글쓰기 -->
 	<insert id="movieWrite">
-		INSERT INTO MOVIE_BOARD (MOVIE_ID, M_TITLE, M_CONTENT, M_WRITER)
-		VALUES (M_BOARD_SEQ.NEXTVAL, #{m_title}, #{m_content}, #{m_writer})
+		INSERT INTO MOVIE_BOARD (MOVIE_ID, M_TITLE, M_CONTENT, M_WRITER, post_img, post_thumbimg, category_id)
+		VALUES (M_BOARD_SEQ.NEXTVAL, #{m_title}, #{m_content}, #{m_writer}, #{post_img}, #{post_thumbimg}, #{category_id})
 	</insert>
 	
 	<!-- 목록조회 -->
 	<select id="movieListPage" resultType="com.src.domain.MBoardVO" parameterType="com.src.domain.SearchCriteria">
-		SELECT MOVIE_ID, M_TITLE, M_WRITER, M_DATE, M_HIT
+		SELECT MOVIE_ID, M_TITLE, M_WRITER, M_DATE, M_HIT, post_img, post_thumbimg, category_id
 		FROM (
-				SELECT MOVIE_ID, M_TITLE, M_WRITER, M_DATE, M_HIT,
+				SELECT MOVIE_ID, M_TITLE, M_WRITER, M_DATE, M_HIT, post_img, post_thumbimg, category_id,
 				ROW_NUMBER() OVER(ORDER BY MOVIE_ID DESC) AS RNUM
 				FROM MOVIE_BOARD
 				WHERE 1=1
@@ -44,7 +44,7 @@
 	
 	<!-- 글보기  -->
 	<select id="movieRead" parameterType="int" resultType="com.src.domain.MBoardVO">
-		SELECT MOVIE_ID, M_TITLE, M_CONTENT, M_WRITER, M_DATE
+		SELECT MOVIE_ID, M_TITLE, M_CONTENT, M_WRITER, M_DATE, post_img, post_thumbimg
 		FROM MOVIE_BOARD
 		WHERE MOVIE_ID = #{movie_id}
 	</select>
@@ -72,4 +72,16 @@
 		WHERE MOVIE_ID = #{movie_id}
 	</update>
 	
+	<!-- 카테고리 전체 조회 -->
+	<select id="categoryList" resultType="com.src.domain.CategoryVO" parameterType="com.src.domain.CategoryVO">
+		SELECT CATEGORY_ID, CATEGORY_NAME
+		FROM CATEGORY
+	</select>
+	
+	<!-- 특정 카테고리 조회 -->
+	<select id="searchCategoty" resultType="com.src.domain.CategoryVO" parameterType="com.src.domain.CategoryVO">
+		SELECT CATEGORY_NAME
+		FROM CATEGORY
+		WHERE CATEGORY_ID  = #{category_id}
+	</select>
 </mapper>

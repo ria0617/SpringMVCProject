@@ -27,14 +27,14 @@ function deleteClick(scrapId){
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid">
-				<h1 class="mt-4">내 스크랩</h1>
+				<h1 class="mt-5">내 스크랩</h1>
 				<ol class="breadcrumb mb-4">
 					<li class="breadcrumb-item active">내 스크랩</li>
 				</ol>
 				<div class="form-row">
 				</div>
 				<div class="mb-4">
-					<div class="table-responsive">
+					<div class="table-responsive text-center">
 						<table class="table table-bordered" id="" width="100%" cellspacing="0">
 								<colgroup>
 									<col width="5%">
@@ -56,8 +56,8 @@ function deleteClick(scrapId){
 								</form>
 								<tr>
 									<td>${status.count}</td>
-									<td><a href="${scrap.scrapAd}"><c:out value="${scrap.scrapTitle}" /></a></td>
-									<td><button class="btn btn-primary" type="submit" onclick="deleteClick(${scrap.scrapId})">삭제</button></td>
+									<td class="text-left"><a href="${scrap.scrapAd}"><c:out value="${scrap.scrapTitle}" /></a></td>
+									<td><button class="btn btn-danger" type="submit" onclick="deleteClick(${scrap.scrapId})">삭제</button></td>
 								</tr>
 							</c:forEach>
 							</tbody>

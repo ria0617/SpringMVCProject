@@ -17,28 +17,24 @@
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid">
-				<h1 class="mt-4">영화리뷰</h1>
+				<h1 class="mt-5">영화리뷰</h1>
 				<ol class="breadcrumb mb-4">
-					<li class="breadcrumb-item"><a href="/board/list">영화리뷰</a></li>
-					<li class="breadcrumb-item active">영화리뷰</li>
+					<li class="breadcrumb-item">
+						페이지: ${pageMaker.cri.page} / ${pageMaker.endPage}&nbsp;&nbsp;
+						총 게시물: ${pageMaker.totalCount}
+					</li>
 				</ol>
-				<div class="form-row">
-					<div class="col-md-6">
-						<div class="form-group">
-							페이지: ${pageMaker.cri.page} / ${pageMaker.endPage}&nbsp;&nbsp;
-							총 게시물: ${pageMaker.totalCount}
+				<c:if test="${not empty login}">
+					<div class="form-row">
+						<div class="col-md-6">
+							<div class="form-group float-right">
+								<a class="btn btn-info"  href="/board/writeView">글쓰기</a>
+							</div>
 						</div>
 					</div>
-					<c:if test="${not empty login}">
-					<div class="col-md-6">
-						<div class="form-group float-right">
-							<a class="btn btn-primary"  href="/board/writeView">글쓰기</a>
-						</div>
-					</div>
-					</c:if>
-				</div>
+				</c:if>
 				<div class="mb-4">
-					<div class="table-responsive">
+					<div class="table-responsive text-center">
 						<table class="table table-bordered" id="" width="100%" cellspacing="0">
 							<colgroup>
 								<col width="5%">
@@ -62,7 +58,7 @@
 								<c:forEach items="${list}" var = "list">
 								<tr>
 									<td><c:out value="${list.bno}" /></td>
-									<td>
+									<td class="text-left">
 										<a href="/board/readView?
 											bno=${list.bno}&
 											page=${scri.page}&
@@ -85,17 +81,17 @@
 						<div class="row">
 							<div class="col-sm-12 col-md-6">
 								<div class="search">
-									<select class="custom-select float-left mr-1" name="searchType" style="display:inline-block; width:30%;">
+									<select class="custom-select float-left mr-1" name="searchType" style="display:inline-block; width:20%;">
 										<option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>검색</option>
 										<option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
 										<option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
 										<option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
 										<option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
 									</select>
-									<div class="input-group float-left" style="width:50%;">
-											<input class="form-control form-control-sm"  type="text" name="keyword" id="keywordInput" value="${scri.keyword}" placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" />
+									<div class="input-group float-left" style="width:30%;">
+											<input class="form-control"  type="text" name="keyword" id="keywordInput" value="${scri.keyword}" placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" />
 											<div class="input-group-append">
-												<button class="btn btn-primary" id="searchBtn"  type="button">
+												<button class="btn btn-info" id="searchBtn"  type="button">
 													<i class="fas fa-search"></i>
 												</button>
 											</div>
