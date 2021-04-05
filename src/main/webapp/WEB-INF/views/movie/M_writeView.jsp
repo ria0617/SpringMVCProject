@@ -57,7 +57,6 @@
 										<option value="${category.category_id}">${category.category_name}</option>
 									</c:forEach>
 								</select>
-
 							</div>
 							<div class="form-group">
 								<label class="small mb-1" >제목</label>
@@ -67,12 +66,12 @@
 								<label class="small mb-1" >내용</label>
 								<textarea  class="form-control py-4"  id="m_content" name="m_content" ></textarea>
 							</div>
+							<!-- 이미지 첨부파일 시작 -->
 							<div class="form-group">
 								<div class="inputArea">
 									<label class="small mb-1" for="postImg">포스터이미지</label><br/>
 									<input class="py-2" type="file" id="postImg" name="file" />
 									<div class="select_img"><img src="" /></div>
-
 									<script>
 									$("#postImg").change(function(){
 										if(this.files && this.files[0]) {
@@ -87,7 +86,7 @@
 									<!--%=request.getRealPath("/") %-->
 								</div>
 							</div>
-							
+							<!-- 이미지 첨부파일 끝 -->
 							<div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
 									<button class="btn btn-primary"  type="submit">글 작성하기</button>
 									<a class="btn btn-dark"  href="/movie/M_list">목록으로</a>

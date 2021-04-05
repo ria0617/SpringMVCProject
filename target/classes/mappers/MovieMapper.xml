@@ -44,7 +44,7 @@
 	
 	<!-- 글보기  -->
 	<select id="movieRead" parameterType="int" resultType="com.src.domain.MBoardVO">
-		SELECT MOVIE_ID, M_TITLE, M_CONTENT, M_WRITER, M_DATE, post_img, post_thumbimg
+		SELECT MOVIE_ID, M_TITLE, M_CONTENT, M_WRITER, M_DATE, post_img, post_thumbimg, category_id
 		FROM MOVIE_BOARD
 		WHERE MOVIE_ID = #{movie_id}
 	</select>
@@ -54,7 +54,10 @@
 		UPDATE MOVIE_BOARD
 		SET 
 			M_TITLE = #{m_title},
-			M_CONTENT = #{m_content}
+			M_CONTENT = #{m_content},
+			post_img = #{post_img}, 
+			post_thumbimg = #{post_thumbimg},
+			category_id = #{category_id}
 		 WHERE MOVIE_ID = #{movie_id} 
 	</update>
 	

@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -20,7 +21,6 @@ import com.src.domain.CategoryVO;
 import com.src.domain.MBoardVO;
 import com.src.domain.PageMaker;
 import com.src.domain.SearchCriteria;
-import com.src.domain.UserVO;
 import com.src.service.MBoardService;
 import com.src.service.UserService;
 import com.src.utils.UploadFileUtils;
@@ -56,9 +56,9 @@ public class MboardController {
 		String fileName = null;
 
 		if(file != null) {
-		 fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
 		} else {
-		 fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
+			fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
 		}
 
 		mboardVO.setPost_img(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
@@ -88,13 +88,9 @@ public class MboardController {
 	@RequestMapping(value = "/M_readView", method = RequestMethod.GET)
 	public String Mread(CategoryVO categoryVO, MBoardVO mboardVO, @ModelAttribute("scri") SearchCriteria scri, Model model, HttpSession httpsession, RedirectAttributes rttr) throws Exception{
 		logger.info("영화 소개글 읽기");
-		categoryVO.setCategory_id(mboardVO.getCategory_id());
-		System.out.println(categoryVO);
-		model.addAttribute("categoty", Mservice.searchCategoty(categoryVO));
+		model.addAttribute("category", Mservice.searchCategoty(categoryVO));
 		model.addAttribute("mread", Mservice.movieRead(mboardVO.getMovie_id()));
 		model.addAttribute("mlist",Mservice.movieListPage(scri));
-
-		
 		return "movie/M_readView";
 	}
 	
@@ -113,20 +109,39 @@ public class MboardController {
 	
 	// 게시판 수정뷰
 	@RequestMapping(value = "/M_updateView", method = RequestMethod.GET)
-	public String MupdateView(MBoardVO mboardVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception{
-		logger.info("영화 소개글 수정 페이지");
+	public String MupdateView(CategoryVO categoryVO, MBoardVO mboardVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception{
+		mboardVO.setCategory_id(categoryVO.getCategory_id());
+		categoryVO.setCategory_id(categoryVO.getCategory_id());
 		model.addAttribute("mupdate", Mservice.movieRead(mboardVO.getMovie_id()));
 		model.addAttribute("scri", scri);
-		System.out.println(Mservice.movieRead(mboardVO.getMovie_id()));
+		model.addAttribute("category",Mservice.categoryList());
+		model.addAttribute("c_name", Mservice.searchCategoty(categoryVO));
 		return "movie/M_updateView";
 	}
 	
 	// 게시판 수정
 	@RequestMapping(value = "/M_update", method = RequestMethod.POST)
-	public String Mupdate(MBoardVO mboardVO, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception{
-		logger.info("영화 소개글 수정");
-		Mservice.movieUpdate(mboardVO);
+	public String Mupdate(CategoryVO categoryVO, MBoardVO mboardVO, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr, MultipartFile file, HttpServletRequest req) throws Exception{
+		// 새로운 파일이 등록되었는지 확인
+		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+		// 기존 파일을 삭제
+		new File(uploadPath + req.getParameter("post_img")).delete();
+		new File(uploadPath + req.getParameter("post_thumbimg")).delete();
 
+		// 새로 첨부한 파일을 등록
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+
+		mboardVO.setPost_img(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+		mboardVO.setPost_thumbimg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+
+		} else {// 새로운 파일이 등록되지 않았다면
+			// 기존 이미지를 그대로 사용
+			mboardVO.setPost_img(req.getParameter("post_img"));
+			mboardVO.setPost_thumbimg(req.getParameter("post_thumbimg"));
+		}
+		Mservice.movieUpdate(mboardVO);
 		rttr.addAttribute("page", scri.getPage());
 		rttr.addAttribute("perPageNum", scri.getPerPageNum());
 		rttr.addAttribute("searchType", scri.getSearchType());

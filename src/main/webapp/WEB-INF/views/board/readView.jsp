@@ -140,16 +140,18 @@ alert ("스크랩되었습니다");
 						<div class="form-group py-4">
 							${read.content}
 						</div>
-						<c:if test="${not empty login}">
 						<div class="dropdown-divider"></div>
 						<div class="form-group align-items-center justify-content-between mt-4 mb-0">
+							<c:if test="${not empty login}">
 							<div class="float-left">
 								<c:if test="${login.userId == read.writer}">
 								<button class="btn btn-success" type="submit" onclick="updateClick()">수정</button>
 								<button class="btn btn-danger" type="submit" onclick="deleteClick()">삭제</button>
 								</c:if>
 							</div>
+							</c:if>
 							<div class="float-right">
+									<c:if test="${not empty login}">
 									<button class="btn btn-primary " type="submit" onclick="scrapIn()">스크랩</button>
 									<c:if test="${pushCheck == 0}">
 									<button class="btn btn-info " type="submit" onclick="pushClick()">추천하기</button>
@@ -157,10 +159,10 @@ alert ("스크랩되었습니다");
 									<c:if test="${pushCheck == 1}">
 									<button class="btn btn-primary " type="submit" onclick="pushOutClick()">추천회수</button>
 									</c:if>
+									</c:if>
 								<button class="btn btn-dark " type="submit" onclick="pageListClick()">목록으로</button>
 							</div>
 						</div>
-						</c:if>
 					</div>
 					<!-- 댓글 기능 전체 -->
 					<div class="card-footer text-left">

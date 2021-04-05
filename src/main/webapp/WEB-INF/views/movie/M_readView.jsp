@@ -48,6 +48,7 @@ function pageListClick(){
 					<div class="card-body">
 						<form name="mreadForm" role="form" method="post" >
 							<input id="movie_id" name="movie_id" type="hidden" value="${mread.movie_id}"/>
+							<input id="category_id" name="category_id" type="hidden" value="${mread.category_id}"/>
 							<input type="hidden" id="page" name="page" value="${scri.page}"> 
 							<input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}"> 
 							<input type="hidden" id="searchType" name="searchType" value="${scri.searchType}"> 
@@ -59,7 +60,7 @@ function pageListClick(){
 							</div>
 							<div class="col-md-9">
 								<div class="form-group font-weight-bold">
-									<h3>[${categoty.category_name}] ${mread.m_title}</h3>
+									<h3>[${category.category_name}] ${mread.m_title}</h3>
 								</div>
 								<div class="form-row">
 									<div class="col-md-2 col-sm-12">기본정보: 미국, 106분&nbsp;&nbsp;</div>
@@ -72,6 +73,7 @@ function pageListClick(){
 								</div>
 							</div>
 						</div>
+						<div class="dropdown-divider"></div>
 						<div class="form-group">
 							<div class="float-left">
 								<c:if test="${login.userId == mread.m_writer}">
