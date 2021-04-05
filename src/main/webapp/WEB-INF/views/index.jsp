@@ -13,9 +13,11 @@
 <div id="layoutSidenav">
 	<%@ include file="include/left_column.jsp" %>
 	
-	<div id="layoutSidenav_content">
+	<div id="layoutSidenav_content" class="main_bg">
 		<main>
-			<div>메인 페이지</div>
+			<div id="mc_wrap">
+			<div class="m_content">메인 페이지</div>
+			</div>
 		</main>
 		<%@ include file="include/main_footer.jsp" %>
 	</div>

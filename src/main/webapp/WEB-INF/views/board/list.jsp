@@ -26,7 +26,7 @@
 				</ol>
 				<c:if test="${not empty login}">
 					<div class="form-row">
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<div class="form-group float-right">
 								<a class="btn btn-info"  href="/board/writeView">글쓰기</a>
 							</div>
@@ -37,12 +37,12 @@
 					<div class="table-responsive text-center">
 						<table class="table table-bordered" id="" width="100%" cellspacing="0">
 							<colgroup>
-								<col width="5%">
+								<col width="10%">
 								<col width="*">
 								<col width="10%">
-								<col width="5%">
-								<col width="5%">
 								<col width="10%">
+								<col width="10%">
+								<col width="15%">
 							</colgroup>
 							<thead>
 								<tr>

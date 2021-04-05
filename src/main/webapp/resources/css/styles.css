@@ -10284,3 +10284,21 @@ body {
 .text-align-center{
 	text-align: center;
 }
+.main_bg {
+	background: url(../../resources/img/main_bg.jpg) #f2f2f2 center center no-repeat;
+	background-size: cover;
+}
+#mc_wrap{
+	position:relative;
+	min-height: calc(100vh - 123px);
+	display: table;
+	width:100%;
+}
+.m_content {
+	display: table-cell; 
+	vertical-align: middle;
+	text-align: center;
+	z-index:999;
+	color:#fff;
+	font-size:3rem;
+}

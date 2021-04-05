@@ -37,9 +37,9 @@ function deleteClick(scrapId){
 					<div class="table-responsive text-center">
 						<table class="table table-bordered" id="" width="100%" cellspacing="0">
 								<colgroup>
-									<col width="5%">
-									<col width="*">
 									<col width="10%">
+									<col width="*">
+									<col width="20%">
 								</colgroup>
 								<thead>
 								<tr>
